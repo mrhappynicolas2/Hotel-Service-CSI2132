@@ -9,7 +9,9 @@ example of how its used
 
 INSTRUCTIONS:
 
-First: Add the postgresql.jar to your java project by following this image
+First: Add the postgresql.jar to your java project by following this image (I use visual studio code)
+![image](https://user-images.githubusercontent.com/113709937/221067494-1eb2e6f9-3505-4f09-b150-9286f4004748.png)
+
 
 Second: Make sure to set your variables correctly
 String url = "jdbc:postgresql://127.0.0.1:5432/postgres?currentSchema=public"; 
