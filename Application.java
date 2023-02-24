@@ -22,16 +22,14 @@ public class Application {
     }
 
     /**
-     * @param name
-     * name will be the name of the table \n
-     * variables will be the variables in the table
+     * @param name will be the name of the table
+     * @param variables variables will be a string array of the variables in 
+     * the table in the format (NAME TYPE), examlpes: (name VARCHAR(20)), (age INT)
+     * @param location will be the location of the table, example: "public","test"
      * @throws SQLException
-     *
-     * @param variables
-     * variables will be a string array of the variables in the table in the format (NAME TYPE), examlpes: (name VARCHAR(20)), (age INT)
      **/
-    public void createTable(String name ,String[] variables){
-        String sql = "CREATE TABLE " + name + " (";
+    public void createTable(String name ,String[] variables, String location){
+        String sql = "CREATE TABLE IF NOT EXISTS \""+location+"\"." + name + " (";
         int i;
         for (i = 0; i < variables.length-1; i++) {
             sql = sql+variables[i]+", ";
@@ -48,14 +46,14 @@ public class Application {
         }
 
     }
-/**
- * 
- * @param tableName Name of the table
- * @param tableCollumn A array with the name of the collumns
- * @param values A array with the values to be inserted (make sure they have '' around them if they are strings, example: 'Bob')
- */
-    public void insertIntoTable(String tableName, String[] tableCollumn, String[] values){
-        String sql = "INSERT INTO " + tableName + " (";
+
+    /**
+     * @param tableName Name of the table
+     * @param tableCollumn A array with the name of the collumns
+     * @param values A array with the values to be inserted (make sure they have '' around them if they are strings, example: 'Bob')
+     */
+    public void insertIntoTable(String tableName, String[] tableCollumn, String[] values, String location){ 
+        String sql = "INSERT INTO " + "\""+location+"\"." + tableName + " (";
         int i;
         for (i = 0; i < tableCollumn.length-1; i++) {
             sql = sql+tableCollumn[i]+", ";
@@ -77,42 +75,110 @@ public class Application {
 
     }
 
-    public void deleteFromTable(String tableName, String[] values){
-        //TODO:
-    }
-
-    //TODO: Currently will only find all the values in the table, change to make it custom
-    public void selectFromTable() {
-        try(Connection conn = this.connect();){
-
-        Statement statement = conn.createStatement();
-
-        // Execute a query
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM artist");
-
-        // Process the results
-        while (resultSet.next()) {
-            
-            String aname = resultSet.getString("aname");
-            String birthplace = resultSet.getString("birthplace");
-            String style = resultSet.getString("style");
-            System.out.println("aname: " + aname + ", birth: " + birthplace + ", style: " + style);
-        }} catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+    /**
+     * 
+     * @param schemaName Name of the Schema
+     */
+    public void createSchema(String schemaName){
+        String sql = 
+            "CREATE SCHEMA IF NOT EXISTS \""+schemaName+"\""
+            +"AUTHORIZATION pg_database_owner;"
         
-    }
-    
-    public void setpath(String path){ //FIXME: This does not seem to work
-        String sql = "SET search_path TO " + path + ";";
+            +"COMMENT ON SCHEMA \""+schemaName+"\""
+            +"IS 'SET search_path = \""+schemaName+"\"';"
+        
+            +"GRANT ALL ON SCHEMA \""+schemaName+"\" TO PUBLIC;"
+            
+            +"GRANT ALL ON SCHEMA \""+schemaName+"\" TO pg_database_owner;"
+            
+            +"ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA \""+schemaName+"\""
+            +"GRANT ALL ON TABLES TO PUBLIC;"
+            
+            +"ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA \""+schemaName+"\""
+            +"GRANT ALL ON SEQUENCES TO PUBLIC;"
+            
+            +"ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA \""+schemaName+"\""
+            +"GRANT EXECUTE ON FUNCTIONS TO PUBLIC;"
+            
+            +"ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA \""+schemaName+"\""
+            +"GRANT USAGE ON TYPES TO PUBLIC;";
         try (Connection conn = this.connect();
                 Statement tableCreation = conn.createStatement()) {
-            
-            tableCreation.execute(sql);
-            System.out.println("New path has been set");
+            tableCreation.executeUpdate(sql);
+            System.out.println("Schema created");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    /**
+     * 
+     * @param tableName Name of table
+     * @param variable The variables to be selected
+     * @param location The location of the table
+     */
+    public void selectFromTable(String tableName ,String[] variable, String location){
+        try(Connection conn = this.connect();){
+
+            Statement statement = conn.createStatement();
+            String sql = "SELECT (";
+            //if no variables are given in the command line
+            if (variable.length == 0) {
+                System.out.println("No variables has been selected");
+                return;
+            }
+
+            //if only 1 variable is given in the command line
+            else if(variable.length == 1){
+                // Execute a query
+                sql = "SELECT " + variable[0] + " FROM \""+location+"\"." + tableName + ";";
+                
+            }
+
+            else{
+            // Execute a query
+            sql = "SELECT (";
+            int i = 0;
+            for (i = 0; i < variable.length-1; i++) {
+                sql = sql+variable[i]+", ";
+            }
+            sql = sql+variable[i]+") FROM \""+location+"\"." + tableName + ";";}
+            
+            // Process the results
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                
+                if (variable.length == 1){
+                
+                    for (int i = 0; i < variable.length; i++) {
+                        String variableName = resultSet.getString(variable[i]);
+                        System.out.print(variable[i] + ": " + variableName);
+                    }
+                    System.out.println();
+                }
+
+                if (variable.length > 1){
+                
+                    for (int i = 0; i < variable.length; i++) {
+                        String variableName = resultSet.getString("row");
+                        variableName = variableName.substring(1,variableName.indexOf(")"));
+                        String[] variableName2 = variableName.split(",");
+                        System.out.print(variable[i] + ": " + variableName2[i]+", ");
+                    }
+                    System.out.println();
+                }
+
+
+            }} catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+
+            
+
+    }
+    
+    public void deleteFromTable(String tableName, String[] values){ //TODO:
+    //TODO: HERE
     }
 
     //main class
@@ -123,7 +189,7 @@ public class Application {
             System.out.println("We will use the default values");
             String url = "jdbc:postgresql://127.0.0.1:5432/postgres?currentSchema=public"; 
             String username = "postgres";
-            String password = "password"; //FIXME: this will not work unless you change it to your password
+            String password = "password"; //FIXME: this will not work unless you change it to your custom password
             app = new Application(url, username, password);
         }
         else{
@@ -134,18 +200,27 @@ public class Application {
             
         }
         
-        String[] testQuery1 = {"Aname VARCHAR(20)","Birthplace VARCHAR(20)","Style VARCHAR(20)","PRIMARY KEY (Aname)"};
-        String[][] testQuery2 = {{"aname", "birthplace", "style"},{"'Joe'","'Milan'","'Baroque'"}};
-        app.setpath("Lab"); //this does not work?
-        app.createTable("TestTable2", testQuery1);
-        app.insertIntoTable("artist", testQuery2[0],testQuery2[1]);
-        app.selectFromTable();
-        //TODO: change these test casses to be related to the hotel database
+
+        //TODO: add more test querys
+        
+        String[] testQuery5 = {"name VARCHAR(20)","number_hotels INTEGER","adress VARCHAR(20)","email VARCHAR(20)","phone VARCHAR(20)","PRIMARY KEY (name)"};
+        String[][] testQuery6 = {{"name", "number_hotels", "adress", "email", "phone"},{"'Hotel1'","'10'","'adress1'","'email1'","'phone1'"}};
+        String[][] testQuery7 = {{"name", "number_hotels", "adress", "email", "phone"},{"'Hotel2'","'20'","'adress2'","'email2'","'phone2'"}};
+        String[][] testQuery8 = {{"name", "number_hotels", "adress", "email", "phone"},{"'Hotel3'","'30'","'adress3'","'email3'","'phone3'"}};
+        String[] testQuery9 = {"name","number_hotels","adress"};
+
+        app.createSchema("Hotels");
+        app.createTable("Hotels", testQuery5, "Hotels");
+        app.insertIntoTable("Hotels", testQuery6[0],testQuery6[1], "Hotels");
+        app.insertIntoTable("Hotels", testQuery7[0],testQuery7[1], "Hotels");
+        app.insertIntoTable("Hotels", testQuery8[0],testQuery8[1], "Hotels");
+        app.selectFromTable("Hotels", testQuery9, "Hotels");
         
 
-        
+        //TODO: Make it so it will not insert into a table if the query already exist
+        //https://stackoverflow.com/questions/1361340/how-can-i-do-insert-if-not-exists-in-mysql
 
-        
+        //TODO: add a WHERE clause to the selectFromTable method
         
 
     }
