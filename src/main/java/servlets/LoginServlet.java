@@ -22,15 +22,23 @@ public class LoginServlet extends HttpServlet {
 		String userid = request.getParameter("userid");
 		String password = request.getParameter("password");
 
-		if (password.equals("admin")) {
+		
+		if (!password.equals("admin")) {
 			out.print("Welcome, " + userid);
 			HttpSession session = request.getSession();
 			session.setAttribute("name", userid);
-		} else {
+
+			String[] args = { "jdbc:postgresql://127.0.0.1:5432/postgres?currentSchema=public", userid, password};
+			Application app = new Application("jdbc:postgresql://127.0.0.1:5432/postgres?currentSchema=public", userid, password);
+			app.main(args);
+		
+			 } else {
 			out.print("Sorry, username or password error!");
 			request.getRequestDispatcher("login.html").include(request,
 					response);
 		}
+
+		
 		out.close();
 	}
 
