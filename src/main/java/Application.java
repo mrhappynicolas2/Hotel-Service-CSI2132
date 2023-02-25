@@ -1,3 +1,4 @@
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -189,7 +190,7 @@ public class Application {
             System.out.println("We will use the default values");
             String url = "jdbc:postgresql://127.0.0.1:5432/postgres?currentSchema=public"; 
             String username = "postgres";
-            String password = "password"; //FIXME: this will not work unless you change it to your custom password
+            String password = "mrhappy11"; //FIXME: this will not work unless you change it to your custom password
             app = new Application(url, username, password);
         }
         else{

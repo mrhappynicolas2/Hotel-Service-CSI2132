@@ -18,3 +18,6 @@ String url = "jdbc:postgresql://127.0.0.1:5432/postgres?currentSchema=public";
 String username = "postgres";
 String password = "password"; <-- This needs to be changed to your pgAdmin4 Postgres password
 I had issues with it resulting in me only being able to use the public schema
+
+# Usefull video
+https://www.youtube.com/watch?v=RiPot1ne8rI&ab_channel=LearningFromExperience
