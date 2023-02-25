@@ -29,8 +29,7 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("name", userid);
 
 			String[] args = { "jdbc:postgresql://127.0.0.1:5432/postgres?currentSchema=public", userid, password};
-			Application app = new Application("jdbc:postgresql://127.0.0.1:5432/postgres?currentSchema=public", userid, password);
-			app.main(args);
+			Application.main(args);
 		
 			 } else {
 			out.print("Sorry, username or password error!");
