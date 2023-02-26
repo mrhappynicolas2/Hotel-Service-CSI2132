@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Application {
     private String url;
@@ -17,6 +19,8 @@ public class Application {
         this.user = user;
         this.password = password;
     }
+
+    public Application(){}
 
     /**Will create the connection between driver and the database */
     public Connection connect() throws SQLException {
@@ -178,6 +182,92 @@ public class Application {
             
 
     }
+
+    /**
+     * 
+     * @param tableName Table name
+     * @param variable Name of column
+     * @param location Name of the schema or table I forgot
+     * @param where specifics of what your serching for (example: name = 'Bob', age = 20")
+     */
+    public List<String> selectFromTable(String tableName ,String[] variable, String location, String[] where){
+        List<String> searchResult = new ArrayList<String>();
+        try(Connection conn = this.connect();){
+
+            Statement statement = conn.createStatement();
+            String sql = "SELECT (";
+            //if no variables are given in the command line
+            if (variable.length == 0) {
+                System.out.println("No variables has been selected");
+                return searchResult;
+            }
+
+            //if only 1 variable is given in the command line
+            else if(variable.length == 1){
+                // Execute a query
+                sql = "SELECT " + variable[0] + " FROM \""+location+"\"." + tableName;
+                
+            }
+
+            else{
+            // Execute a query
+                sql = "SELECT (";
+                int i = 0;
+                for (i = 0; i < variable.length-1; i++) {
+                    sql = sql+variable[i]+", ";
+                }
+                sql = sql+variable[i]+") FROM \""+location+"\"." + tableName;
+            }
+            
+            if (where.length == 0) {
+                System.out.println("No where statement has been given");
+                return searchResult;
+            }
+            else if (where.length == 1) {
+                sql = sql + " WHERE " + where[0] + ";";
+            }
+            else {
+                sql = sql + " WHERE ";
+                int i;
+                for (i =0; i<where.length-1; i++){
+                    sql = sql + where[i] + " AND " ;
+                }
+                sql = sql + where[i] + ";";
+            }
+
+
+            // Process the results
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                
+                if (variable.length == 1){
+                    for (int i = 0; i < variable.length; i++) {
+                        String variableName = resultSet.getString(variable[i]);
+                        System.out.print(variable[i] + ": " + variableName);
+                        searchResult.add(variable[i] + ": " + variableName);
+                    }
+                    System.out.println();
+                }
+
+                if (variable.length > 1){
+                    String stringResult = "";
+                    for (int i = 0; i < variable.length; i++) {
+                        String variableName = resultSet.getString("row");
+                        variableName = variableName.substring(1,variableName.indexOf(")"));
+                        String[] variableName2 = variableName.split(",");
+                        System.out.print(variable[i] + ": " + variableName2[i]+", ");
+                        stringResult = stringResult+variable[i] + ": " + variableName2[i]+", ";
+                    }
+                    System.out.println();
+                    searchResult.add(stringResult);
+                }
+
+
+            }} catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+            return searchResult;
+    }
     
     public void deleteFromTable(String tableName, String[] values){ //TODO:
     //TODO: HERE
@@ -191,7 +281,7 @@ public class Application {
             System.out.println("We will use the default values");
             String url = "jdbc:postgresql://127.0.0.1:5432/postgres?currentSchema=public"; 
             String username = "postgres";
-            String password = "password"; //FIXME: this will not work unless you change it to your custom password
+            String password = "mrhappy11"; //FIXME: this will not work unless you change it to your custom password
             app = new Application(url, username, password);
         }
         else{
@@ -210,6 +300,7 @@ public class Application {
         String[][] testQuery7 = {{"name", "number_hotels", "adress", "email", "phone"},{"'Hotel2'","'20'","'adress2'","'email2'","'phone2'"}};
         String[][] testQuery8 = {{"name", "number_hotels", "adress", "email", "phone"},{"'Hotel3'","'30'","'adress3'","'email3'","'phone3'"}};
         String[] testQuery9 = {"name","number_hotels","adress"};
+        String[][] testQueryWhere = {{"name","number_hotels","adress","email"},{"number_hotels > 10", "email = \'email2\'"}};
 
         app.createSchema("Hotels");
         app.createTable("Hotels", testQuery5, "Hotels");
@@ -217,12 +308,12 @@ public class Application {
         app.insertIntoTable("Hotels", testQuery7[0],testQuery7[1], "Hotels");
         app.insertIntoTable("Hotels", testQuery8[0],testQuery8[1], "Hotels");
         app.selectFromTable("Hotels", testQuery9, "Hotels");
+        app.selectFromTable("Hotels", testQueryWhere[0], "Hotels", testQueryWhere[1]);
         
 
         //TODO: Make it so it will not insert into a table if the query already exist
         //https://stackoverflow.com/questions/1361340/how-can-i-do-insert-if-not-exists-in-mysql
 
-        //TODO: add a WHERE clause to the selectFromTable method
         
 
     }

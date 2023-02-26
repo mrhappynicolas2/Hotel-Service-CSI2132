@@ -22,4 +22,13 @@
     <servlet-name>LogoutServlet</servlet-name>
     <url-pattern>/LogoutServlet</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <description></description>
+    <servlet-name>SearchServlet</servlet-name>
+    <servlet-class>servlets.SearchServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchServlet</servlet-name>
+    <url-pattern>/SearchServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -15,22 +15,12 @@
         </ul>
       </nav>
 	<h1>Search for Items</h1>
-	<form action="search.php" method="get">
-		<label for="search">Max room occupency</label>
-        <input type="text" id="search" name="occupency" placeholder="Search...">
-        <label for="search2">Max price:</label>
-        <input type="text" id="search2" name="price" placeholder="Search...">
-        <label for="search3">Area:</label>
-		<input type="text" id="search3" name="area" placeholder="Search...">
-        <label for="HotelChain">Hotel Chain:</label>
-		<input type="text" id="HotelChain" name="chain" placeholder="Search...">
-        <label for="NRooms">Number of rooms:</label>
-		<input type="text" id="NRooms" name="nrooms" placeholder="Search...">
-        <label for="NStars">Minimum number of stars:</label>
-		<input type="text" id="NStars" name="nstars" placeholder="Search...">
+        <form action="SearchServlet" method="post">
+            HotelName:<input type="text" name="hotel"><br>
+            Number of Hotels:<input type="text" name="number"><br>
+            <input type="submit" value="submit">
+        </form>
 
-        
-		<button type="submit">Search</button>
 	</form>
 </body>
 </html>
