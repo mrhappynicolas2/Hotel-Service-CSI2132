@@ -35,7 +35,9 @@ public class SearchServlet extends HttpServlet {
 
 		//TODO: Change the table to be dynamic and not hardcoded
 		String begin = 
-	"<head>"
+	"<br>"
+	+"<hr>"
+	+"<head>"
 	+"	<title>Search Results</title>"
 	+"	<style>"
 	+"		table, th, td {"
