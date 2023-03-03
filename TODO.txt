@@ -1,14 +1,14 @@
 In SearchServlet:
-    Fix the way information is showed, this can be done by seperating the results that are made and then creating a section for each in the table
-    Make it so it keeps the information(username and password) from when you login so that you can acess the database
-    Change the way you search for stuff (if you insert nothing into a search bar, it will search for other aspects instead)
-    Add buttons and stuff like that
-    Right now it will search the name of a hotel with the exact name and will search for the number_hotels which is > then what you typed
+        Fix the way information is showed, this can be done by seperating the results that are made and then creating a section for each in the table
+DONE -  Make it so it keeps the information(username and password) from when you login so that you can acess the database
+        Change the way you search for stuff (if you insert nothing into a search bar, it will search for other aspects instead)
+        Add buttons and stuff like that
+        Right now it will search the name of a hotel with the exact name and will search for the number_hotels which is > then what you typed
 
-In Application:
-    Change the way the selectFromTable function works, right now you cant use the LIKE command
+        In Application:
+            Change the way the selectFromTable function works, right now you cant use the LIKE command
 
-In LoginServlet:
-    Make it so it saves all information at all times
+        In LoginServlet:
+            Make it so it saves all information at all times
 
-There are many other stuff to add!
+        There are many other stuff to add!

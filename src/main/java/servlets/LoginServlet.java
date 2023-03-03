@@ -30,7 +30,8 @@ public class LoginServlet extends HttpServlet {
 			out.print("Welcome, " + userid);
 			out.print("<li><a href=\"Homepage.html\">Home</a></li>");
 			HttpSession session = request.getSession();
-			session.setAttribute("name", userid);
+			session.setAttribute("name", userid+"_"+password);
+			
 
 			String[] args = { "jdbc:postgresql://127.0.0.1:5432/postgres?currentSchema=public", userid, password};
 			Application.main(args);
