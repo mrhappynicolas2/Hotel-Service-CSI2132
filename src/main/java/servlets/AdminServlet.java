@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Sample servlet class for login related methods
  */
-public class LoginServlet extends HttpServlet {
+public class AdminServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
@@ -21,26 +21,28 @@ public class LoginServlet extends HttpServlet {
 
 		String userid = request.getParameter("userid");
 		String password = request.getParameter("password");
-
+        HttpSession session = request.getSession();
 		
 
 
-		
-		if (!password.equals("admin")) {
+	if(String.valueOf(session.getAttribute("role")) != "admin"){	
+		if (password.equals("admin")) {
 			out.print("Welcome, " + userid);
-			out.print("<li><a href=\"Homepage.html\">Home</a></li>");
-			HttpSession session = request.getSession();
-			session.setAttribute("name", userid+"_"+password);
-			
-
-			String[] args = { "jdbc:postgresql://127.0.0.1:5432/postgres?currentSchema=public", userid, password};
-			Application.main(args);
+			out.print("<li><a href=\"Reservation.html\">Access reservation</a></li>");
+			session.setAttribute("role", "admin");
+            request.getRequestDispatcher("Reservation.html").include(request, response);
 		
-			 } else {
-			out.print("Sorry, username or password error!");
+			} 
+        else {
+			out.print("Sorry, your not a employee!");
 			request.getRequestDispatcher("login.html").include(request,
 					response);
 		}
+    }
+    else{
+        out.print("You are already logged in!");
+        out.print("<li><a href=\"Reservation.html\">Access reservation</a></li>");
+    }
 
 		
 		out.close();

@@ -45,7 +45,19 @@
         <form action="SearchServlet" method="post">
             HotelName:<input type="text" name="hotel"><br>
             Number of Hotels:<input type="text" name="number"><br>
-            <input type="submit" value="submit">
+            Town
+            <select id="Area" name="arealist" form="SearchServlet">
+              <option value="madrid">Madrid</option>
+              <option value="ottawa">Ottawa</option>
+              <option value="opel">Opel</option>
+              <option value="paris">Paris</option>
+            </select> <br>
+            Max number of rooms:<input type="text" name="numberRooms"><br>
+            Max price:<input type="text" name="maxPrice"><br>
+            Start date<input type="date" id="startDate" name="startDate"><br>
+            End date<input type="date" id="endDate" name="endDate"><br>
+
+            <input type="submit" value="Search for availability">
         </form>
 
 	</form>

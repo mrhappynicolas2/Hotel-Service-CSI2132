@@ -31,4 +31,33 @@
     <servlet-name>SearchServlet</servlet-name>
     <url-pattern>/SearchServlet</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <description></description>
+    <servlet-name>AdminServlet</servlet-name>
+    <servlet-class>servlets.AdminServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminServlet</servlet-name>
+    <url-pattern>/AdminServlet</url-pattern>
+  </servlet-mapping>
+     <servlet>
+    <description></description>
+    <servlet-name>EmployeeServlet</servlet-name>
+    <servlet-class>servlets.EmployeeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EmployeeServlet</servlet-name>
+    <url-pattern>/EmployeeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <servlet-name>ReservationServlet</servlet-name>
+    <servlet-class>servlets.ReservationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReservationServlet</servlet-name>
+    <url-pattern>/ReservationServlet</url-pattern>
+  </servlet-mapping>
+  
+
 </web-app>

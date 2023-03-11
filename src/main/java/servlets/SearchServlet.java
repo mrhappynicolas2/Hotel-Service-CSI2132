@@ -21,6 +21,11 @@ public class SearchServlet extends HttpServlet {
 		request.getRequestDispatcher("Search.html").include(request, response);
 		String hotelName = request.getParameter("hotel");
 		String hotelNumber = request.getParameter("number");
+		String areaList = request.getParameter("arealist"); //This odes not seem to work
+		String numberRooms = request.getParameter("numberRooms");
+		String maxPrice = request.getParameter("maxPrice");
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
 		//out.print("the name of the hotel is, " + hotelName);
 		//out.print("\nthe number of the hotel is, " + hotelNumber);
 		

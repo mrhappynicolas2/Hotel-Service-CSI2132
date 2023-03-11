@@ -1,5 +1,6 @@
 package servlets;
 
+import java.io.Reader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,6 +9,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.ibatis.jdbc.ScriptRunner;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 
 public class Application {
     private String url;
@@ -193,7 +198,7 @@ public class Application {
     public List<String> selectFromTable(String tableName ,String[] variable, String location, String[] where){
         List<String> searchResult = new ArrayList<String>();
         try(Connection conn = this.connect();){
-
+            
             Statement statement = conn.createStatement();
             String sql = "SELECT (";
             //if no variables are given in the command line
@@ -311,6 +316,17 @@ public class Application {
         app.selectFromTable("Hotels", testQueryWhere[0], "Hotels", testQueryWhere[1]);
         
 
+        try{
+            ScriptRunner sr = new ScriptRunner(app.connect());
+            Reader reader = new BufferedReader(new FileReader("resources/project.sql"));
+            sr.runScript(reader);
+            }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        catch(FileNotFoundException e){
+            System.out.println(e.getMessage());
+        }
         //TODO: Make it so it will not insert into a table if the query already exist
         //https://stackoverflow.com/questions/1361340/how-can-i-do-insert-if-not-exists-in-mysql
 

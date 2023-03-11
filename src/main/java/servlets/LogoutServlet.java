@@ -43,20 +43,6 @@ public class LogoutServlet extends HttpServlet {
 +"      background-color: #111111;"
 +"    }"
 +"    </style>"
-+"  <head>"
-+"    <title>Hotel Company</title>"
-+"  </head>"
-+"  <nav>"
-+"    <ul>"
-+"      <li><a href=\"Homepage.html\">Home</a></li>"
-+"      <li><a href=\"#\">Rooms</a></li>"
-+"      <li><a href=\"#\">Services</a></li>"
-+"      <li><a href=\"#\">Contact Us</a></li>"
-+"      <li><a href=\"Search.html\">Search</a></li>"
-+"      <li><a href=\"login.html\">Login</a></li>"
-+"      <li><a href=\"LogoutServlet\">Logout</a></li>"
-+"    </ul>"
-+"  </nav>"
 		);
 		out.print("You are successfully logged out!");
 		out.close();
