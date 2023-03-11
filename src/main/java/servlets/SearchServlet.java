@@ -52,7 +52,7 @@ public class SearchServlet extends HttpServlet {
 			List<String> result = app.selectFromTable("Hotels", Column, "Hotels", where);
 				
 
-			//TODO: Change the table to be dynamic and not hardcoded
+			
 			String begin = 
 		"<br>"
 		+"<hr>"

@@ -1,0 +1,27 @@
+This txt document will help explain what everything does and how they work
+
+1) First step is to login into the database (username "postgres", password being your password)
+
+2A)  Now that you are logged in you can either search for a room (still in progress)
+
+2B) Or you can go to the "Employee section" this section can be used to search for the agreements
+B2) After getting to the employee section, you need to login as a employee, currently this is done by having any username, 
+    But having the password "admin"
+B3) After having connected with the employee credentials, You can now search for a agreementID
+B4) After having searched for a agreement ID, you can either deny or accept the agreement
+
+
+How the servlet work:
+
+AdminServlet: is used for logging in as the employee in section B
+EmployeeServlet: is not currently being used
+LoginServlet: is used to login as the database (username:postgres, password:UNIQUE)
+LogoutServlet: is used to logout of the database (just resets the username and password)
+ReservationServlet: Is used to search for the reservationID's, can then use the 3 buttons to deny, accept or view
+SearchServlet: is used to search for a specific room (still in progress)
+
+DenyReservationServlet      :
+AcceptReservationServlet    : These have not been implemented yet, but they will be used to __ a reservation
+ViewReservationServlet      :
+
+Application.java is used for connecting to the database 
