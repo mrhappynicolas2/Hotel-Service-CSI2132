@@ -126,7 +126,7 @@ public class Application {
      * 
      * @param tableName Name of table
      * @param variable The variables to be selected
-     * @param location The location of the table
+     * @param schema The location of the schema
      */
     public void selectFromTable(String tableName ,String[] variable, String location){
         try(Connection conn = this.connect();){
@@ -192,7 +192,7 @@ public class Application {
      * 
      * @param tableName Table name
      * @param variable Name of column
-     * @param location Name of the schema or table I forgot
+     * @param schema Name of the schema 
      * @param where specifics of what your serching for (example: name = 'Bob', age = 20")
      */
     public List<String> selectFromTable(String tableName ,String[] variable, String location, String[] where){
@@ -262,6 +262,9 @@ public class Application {
                         String[] variableName2 = variableName.split(",");
                         System.out.print(variable[i] + ": " + variableName2[i]+", ");
                         stringResult = stringResult+variable[i] + ": " + variableName2[i]+", ";
+                        if (variableName2.length == i+1){
+                            break;
+                        }
                     }
                     System.out.println();
                     searchResult.add(stringResult);
@@ -271,6 +274,11 @@ public class Application {
             }} catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
+//catch arrayoutofbounds exception
+            catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println(e.getMessage());
+            }
+
             return searchResult;
     }
     
@@ -299,7 +307,7 @@ public class Application {
         
 
         //TODO: add more test querys
-        
+        /* 
         String[] testQuery5 = {"name VARCHAR(20)","number_hotels INTEGER","adress VARCHAR(20)","email VARCHAR(20)","phone VARCHAR(20)","PRIMARY KEY (name)"};
         String[][] testQuery6 = {{"name", "number_hotels", "adress", "email", "phone"},{"'Hotel1'","'10'","'adress1'","'email1'","'phone1'"}};
         String[][] testQuery7 = {{"name", "number_hotels", "adress", "email", "phone"},{"'Hotel2'","'20'","'adress2'","'email2'","'phone2'"}};
@@ -314,7 +322,7 @@ public class Application {
         app.insertIntoTable("Hotels", testQuery8[0],testQuery8[1], "Hotels");
         app.selectFromTable("Hotels", testQuery9, "Hotels");
         app.selectFromTable("Hotels", testQueryWhere[0], "Hotels", testQueryWhere[1]);
-        
+        */
 
         try{
             ScriptRunner sr = new ScriptRunner(app.connect());
