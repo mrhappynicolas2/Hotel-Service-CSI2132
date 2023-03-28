@@ -44,7 +44,7 @@ public class SearchServlet extends HttpServlet {
 			
 
 				
-			String[] Column = {"name","number_hotels","adress","email","phone"};
+			String[] Column = {"room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num"};
 			String[] where = {"name = '"+hotelName+"'", "number_hotels > "+hotelNumber};
 
 			String url = "jdbc:postgresql://127.0.0.1:5432/postgres?currentSchema=public"; 
