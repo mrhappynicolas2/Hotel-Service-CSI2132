@@ -7,14 +7,13 @@ In SearchServlet:
 In Application:
     Change the way the selectFromTable function works, right now you cant use the LIKE command
 
-In LoginServlet:
-    Make it so it saves all information at all times
-
 In ReservationServlet: 
-    -Add the servlets that are connected to the buttons (or change the way they work)
+    -Add ReservationViewServlet
+
+SQL:
+	Change "agreement" to have a foreign key connected to client and rooms
+		might cause a issue since instead of null, 0 was used
+	change Adress to be a multi-variable
+
 
 General:
-We need a way to automaticly login into the database: Curretnly this is done by singing in as the database (username is postgres, password is your password)
-We also need a way to do roles, im too lazy to add a way to add roles, so we could just add 2 roles to the database 
-    -problem of doing it this way: do we have 2 sets of HTML files, 1 for users and for employees?
-    -or do we have 1 set, but use if statements to check what your role is

@@ -20,8 +20,38 @@ LogoutServlet: is used to logout of the database (just resets the username and p
 ReservationServlet: Is used to search for the reservationID's, can then use the 3 buttons to deny, accept or view
 SearchServlet: is used to search for a specific room (still in progress)
 
-DenyReservationServlet      :
-AcceptReservationServlet    : These have not been implemented yet, but they will be used to __ a reservation
-ViewReservationServlet      :
+DenyReservationServlet      : Change a reservation from ___ to "free"
+AcceptReservationServlet    : Change a reservation from ___ to "used" 
+ViewReservationServlet      : --NOT IMPLEMENTED YET-- should allow you to view room and client
 
 Application.java is used for connecting to the database 
+	createTable: Used to create a table
+		"name" will be the name of the table
+     		"variables" variables will be a string array of the variables in the table in the format (NAME TYPE),(NAME TYPE), ETC... examples: (name VARCHAR(20)), (age INT)
+     		"location" will be the location of the table (schema)
+	
+	insertIntoTable: Used to insert a row into a table
+    		@param tableName: Name of the table
+     		@param tableCollumn: A array with the name of the collumns
+     		@param values: A array with the values to be inserted (make sure they have '' around them if they are strings, example: 'Bob')
+          
+    	createSchema: create a schema
+	 	@param schemaName: Name of the Schema
+
+	selectFromTable: Used to get information 
+		@param tableName: Name of table
+      	@param variable: The variables to be selected
+      	@param schema: The location of the schema
+		@param where: specifics of what your serching for (example: name = 'Bob', age = 20")
+
+	updateRow: used to update a row
+		@param tableName Name of the table
+     		@param schema Name of the schema (Hotels)
+     		@param values values to be changed (ex: room_status = 'free', room_annimities = 'test')
+     		@param where specifics of what your serching for (example: agreement_num = '1')
+
+	databaseRefresh: used to delete a database 
+
+	deleteFromTable: --NOT IMPLEMENTED YET--
+
+	main: Used to create the database and test some stuff
