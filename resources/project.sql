@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS "Hotels"."agreement"
     "agreement_num" "char" NOT NULL,
     "startdate" date,
     "enddate" date,
+    "status" character varying(20),
     CONSTRAINT "agreement_pkey" PRIMARY KEY ("agreement_num")
 );
 
@@ -137,17 +138,17 @@ INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress
 INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel48', 5, 'chain5', 3, 'adress48', 'email48', 'phone48')ON CONFLICT DO NOTHING;
 
 
-INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate") VALUES ('0', '1999-01-01', '2018-12-31')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate") VALUES ('1', '2018-01-01', '2018-12-31')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate") VALUES ('2', '2018-01-01', '2018-12-31')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate") VALUES ('3', '2018-01-01', '2018-12-31')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate") VALUES ('4', '2018-01-01', '2018-12-31')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate") VALUES ('5', '2018-01-01', '2018-12-31')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate") VALUES ('6', '2018-01-01', '2018-12-31')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate", "status") VALUES ('0', '1999-01-01', '2018-12-31', 'empty')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate", "status") VALUES ('1', '2018-01-01', '2018-12-31', 'empty')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate", "status") VALUES ('2', '2018-01-01', '2018-12-31', 'empty')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate", "status") VALUES ('3', '2018-01-01', '2018-12-31', 'empty')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate", "status") VALUES ('4', '2018-01-01', '2018-12-31', 'empty')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate", "status") VALUES ('5', '2018-01-01', '2018-12-31', 'empty')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate", "status") VALUES ('6', '2018-01-01', '2018-12-31', 'empty')ON CONFLICT DO NOTHING;
 
 
 INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'mountain view', 100, 1, 'free', 'tv', 'hotel1', '0')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'sea view', 150, 2 'free', 'tv', 'hotel1', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'sea view', 150, 2, 'free', 'tv', 'hotel1', '0')ON CONFLICT DO NOTHING;
 INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 170, 3, 'free', 'tv', 'hotel1', '0')ON CONFLICT DO NOTHING;
 INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'mountain view', 120, 4, 'free', 'tv', 'hotel1', '0')ON CONFLICT DO NOTHING;
 INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'sea view', 130, 5, 'free', 'tv', 'hotel1', '0')ON CONFLICT DO NOTHING;
@@ -396,5 +397,8 @@ INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capac
 INSERT INTO "Hotels"."chain" ("name", "number_hotels", "adress", "email", "phone") VALUES ('chain6', 5, 'adress5', 'email5', 'phone5')ON CONFLICT DO NOTHING;
 INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel101', 5, 'chain6', 1, 'adress41', 'email41', 'phone41')ON CONFLICT DO NOTHING;
 INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'sea view', 140, 1, 'used', 'tv', 'hotel101', '1')ON CONFLICT DO NOTHING;
+
+
+
 
 

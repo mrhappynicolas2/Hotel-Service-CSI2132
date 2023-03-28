@@ -58,6 +58,42 @@
     <servlet-name>ReservationServlet</servlet-name>
     <url-pattern>/ReservationServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <servlet-name>ReservationAcceptServlet</servlet-name>
+    <servlet-class>servlets.ReservationAcceptServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReservationAcceptServlet</servlet-name>
+    <url-pattern>/ReservationAcceptServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <servlet-name>ReservationDenyServlet</servlet-name>
+    <servlet-class>servlets.ReservationDenyServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReservationDenyServlet</servlet-name>
+    <url-pattern>/ReservationDenyServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <servlet-name>ReservationViewServlet</servlet-name>
+    <servlet-class>servlets.ReservationViewServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReservationViewServlet</servlet-name>
+    <url-pattern>/ReservationViewServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <servlet-name>ReservationLeftServlet</servlet-name>
+    <servlet-class>servlets.ReservationLeftServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReservationLeftServlet</servlet-name>
+    <url-pattern>/ReservationLeftServlet</url-pattern>
+  </servlet-mapping>
   
 
 </web-app>

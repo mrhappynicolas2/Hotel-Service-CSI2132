@@ -282,6 +282,56 @@ public class Application {
             return searchResult;
     }
     
+    /**
+     * 
+     * @param tableName Name of the table
+     * @param schema Name of the schema (Hotels)
+     * @param values values to be changed (ex: room_status = 'free', room_annimities = 'test')
+     * @param where specifics of what your serching for (example: agreement_num = '1')
+     */
+    public void updateRow(String tableName, String schema, String[] values, String[] where){ 
+        String sql = "UPDATE " + "\""+schema+"\"." + tableName + " SET ";
+        
+        //if only 1 item
+        if (values.length == 1) {
+            sql = sql+values[0]+" WHERE ";
+        }
+
+        //if more than 1 item
+        else{
+            int i;
+            for (i = 0; i < values.length-1; i++) {
+                sql = sql+values[i]+", ";
+            }
+            sql = sql+values[i]+" WHERE ";
+        }
+        
+        //if only 1 item
+        if (where.length == 1){
+            sql = sql+where[0]+";";
+
+        }
+
+        else{
+            int i = 0;
+            for (i = 0; i < where.length-1; i++) {
+                sql = sql+where[i]+" AND ";
+                
+            }
+            sql = sql+where[0]+";";
+        }
+
+        
+
+        try (Connection conn = this.connect();
+                Statement tableCreation = conn.createStatement()) {
+            tableCreation.executeUpdate(sql);
+            System.out.println("Variables has been updated");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     //* This will reset the database to the project.sql version */
     public void databaseRefresh(Application app){
         
@@ -361,6 +411,9 @@ public class Application {
             String[][] testQueryNull = {{"room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num"},{"room_status = 'used'"}};
             
             app.selectFromTable("Rooms", testQueryNull[0], "Hotels", testQueryNull[1] );
+
+            String[][] testQuery2 = {{"room_status = 'reserved'", "room_annimities = 'test3'"},{"agreement_num = '1'", "room_type = 'five'"}};
+            app.updateRow("rooms", "Hotels", testQuery2[0], testQuery2[1]);
         }
     }
 

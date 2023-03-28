@@ -34,7 +34,10 @@ public class ReservationServlet extends HttpServlet {
 			String url = "jdbc:postgresql://127.0.0.1:5432/postgres?currentSchema=public"; 
 			Application app = new Application(url, username, password);
 			List<String> result = app.selectFromTable("agreement", Column, "Hotels", where);
-				
+			
+			session.setAttribute("num", agreementNum);
+			
+			String test = (String)request.getAttribute("num");
 			String begin = 
 		"<br>"
 		+"<hr>"
@@ -61,6 +64,8 @@ public class ReservationServlet extends HttpServlet {
 		+"				<th>End Date</th>"
 		+"				<th>Accept Reservation</th>"
         +"				<th>Deny Reservation</th>"
+		+"				<th>View Reservation</th>"
+		+"				<th>Left Room</th>"
 		+"			</tr>"
 		+"		</thead>"
 		+"		<tbody>";
@@ -74,20 +79,25 @@ public class ReservationServlet extends HttpServlet {
 					+"<td>" + Categori[1] + "</td>"
 					+"<td>" + Categori[2] + "</td>"
                     +"<td>" //TODO: Add all these servlet (maybe change the way they work, ex: instead of a button to view, it will automaticly give more info)
-                        +"<form action=\"AddReservationServlet\" method=\"post\">"
+                        +"<form action=\"ReservationAcceptServlet\" method=\"post\">"
                         +   "<input type=\"submit\" value=\"Accept Reservation\">"
                         +"</form>"
                     +"</td>"
                     +"<td>"
-                        +"<form action=\"DenyReservationServlet\" method=\"post\">"
+                        +"<form action=\"ReservationDenyServlet\" method=\"post\">"
                         +   "<input type=\"submit\" value=\"Deny Reservation\">"
                         +"</form>"
                     +"</td>"
                     +"<td>"
-                        +"<form action=\"ViewReservationServlet\" method=\"post\">"
+                        +"<form action=\"ReservationViewServlet\" method=\"post\">"
                         +   "<input type=\"submit\" value=\"View Reservation\">"
                         +"</form>"
-                +"</td>"
+                	+"</td>"
+					+"<td>"
+						+"<form action=\"ReservationLeftServlet\" method=\"post\">"
+						+	"<input type=\"submit\" value=\"Left Room\">"
+						+"</form>"
+					+"</td>"
 				+"</tr>"
 		+"		</tbody>"
 		+"	</table>"
@@ -95,6 +105,8 @@ public class ReservationServlet extends HttpServlet {
 			out.print(begin + middle);
 
 			out.close();
+
+			
 		}
 		
         
