@@ -282,6 +282,22 @@ public class Application {
             return searchResult;
     }
     
+    //* This will reset the database to the project.sql version */
+    public void databaseRefresh(Application app){
+        
+        try{
+            ScriptRunner sr = new ScriptRunner(app.connect());
+            Reader reader = new BufferedReader(new FileReader("resources/refresh.sql"));
+            sr.runScript(reader);
+            }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        catch(FileNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+
+    }
     public void deleteFromTable(String tableName, String[] values){ //TODO:
     //TODO: HERE
     }
@@ -324,22 +340,28 @@ public class Application {
         app.selectFromTable("Hotels", testQueryWhere[0], "Hotels", testQueryWhere[1]);
         */
 
-        try{
-            ScriptRunner sr = new ScriptRunner(app.connect());
-            Reader reader = new BufferedReader(new FileReader("resources/project.sql"));
-            sr.runScript(reader);
+        if (false) { //change this value to true if you want to refresh the database
+            System.out.println("Database has been refreshed");
+            app.databaseRefresh(app);}
+        else{
+            try{
+                ScriptRunner sr = new ScriptRunner(app.connect());
+                Reader reader = new BufferedReader(new FileReader("resources/project.sql"));
+                sr.runScript(reader);
+                }
+            catch(SQLException e){
+                System.out.println(e.getMessage());
             }
-        catch(SQLException e){
-            System.out.println(e.getMessage());
-        }
-        catch(FileNotFoundException e){
-            System.out.println(e.getMessage());
-        }
-        //TODO: Make it so it will not insert into a table if the query already exist
-        //https://stackoverflow.com/questions/1361340/how-can-i-do-insert-if-not-exists-in-mysql
+            catch(FileNotFoundException e){
+                System.out.println(e.getMessage());
+            }
+            //TODO: Make it so it will not insert into a table if the query already exist
+            //https://stackoverflow.com/questions/1361340/how-can-i-do-insert-if-not-exists-in-mysql
 
-        
-
+            String[][] testQueryNull = {{"room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num"},{"room_status = 'used'"}};
+            
+            app.selectFromTable("Rooms", testQueryNull[0], "Hotels", testQueryNull[1] );
+        }
     }
 
 }

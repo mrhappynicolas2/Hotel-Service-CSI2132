@@ -12,14 +12,54 @@ CREATE TABLE IF NOT EXISTS "Hotels"."agreement"
     CONSTRAINT "agreement_pkey" PRIMARY KEY ("agreement_num")
 );
 
-CREATE TABLE IF NOT EXISTS "Hotels"."hotels"
+CREATE TABLE IF NOT EXISTS "Hotels"."employee"
+(
+    "ssnE" integer NOT NULL,
+    "name" character varying(20),
+    "adress" character varying(20),
+    "username" character varying(20),
+    "password" character varying(20),
+    "hiredate" date,
+    CONSTRAINT employee_pkey PRIMARY KEY ("ssnE")
+);
+
+CREATE TABLE IF NOT EXISTS "Hotels"."customer"
+(
+    "ssnC" integer NOT NULL,
+    "name" character varying(20),
+    "adress" character varying(20),
+    "username" character varying(20),
+    "password" character varying(20),
+    "registrationdate" date,
+    "phone" integer,
+    CONSTRAINT customer_pkey PRIMARY KEY ("ssnC")
+);
+
+
+CREATE TABLE IF NOT EXISTS "Hotels"."chain"
 (
     "name" character varying(20) NOT NULL,
     "number_hotels" integer,
     "adress" character varying(20),
     "email" character varying(20),
     "phone" character varying(20),
-    CONSTRAINT hotels_pkey PRIMARY KEY (name)
+    CONSTRAINT chain_pkey PRIMARY KEY (name)
+);
+
+CREATE TABLE IF NOT EXISTS "Hotels"."hotels"
+(
+    "name" character varying(20) NOT NULL,
+    "number_rooms" integer,
+    "chain" character varying(20),
+    "stars" integer,
+    "adress" character varying(20),
+    "email" character varying(20),
+    "phone" character varying(20),
+    CONSTRAINT hotels_pkey PRIMARY KEY (name),
+    CONSTRAINT hotels_chain_fkey FOREIGN KEY ("chain")
+        REFERENCES "Hotels"."chain" ("name") MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS "Hotels"."rooms"
@@ -44,14 +84,60 @@ CREATE TABLE IF NOT EXISTS "Hotels"."rooms"
         ON DELETE CASCADE
 );
 
-INSERT INTO  "Hotels"."hotels" ("name", "number_hotels", "adress", "email", "phone") VALUES ('hotel1', 1, 'adress1', 'email1', 'phone1') ON CONFLICT DO NOTHING;
 
-INSERT INTO  "Hotels"."hotels" ("name", "number_hotels", "adress", "email", "phone") VALUES ('hotel1', 1, 'adress1', 'email1', 'phone1') ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_hotels", "adress", "email", "phone") VALUES ('hotel2', 1, 'adress1', 'email2', 'phone2')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_hotels", "adress", "email", "phone") VALUES ('hotel3', 1, 'adress3', 'email3', 'phone3')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_hotels", "adress", "email", "phone") VALUES ('hotel4', 1, 'adress4', 'email4', 'phone4')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_hotels", "adress", "email", "phone") VALUES ('hotel5', 1, 'adress5', 'email5', 'phone5')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."chain" ("name", "number_hotels", "adress", "email", "phone") VALUES ('chain1', 5, 'adress1', 'email1', 'phone1')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."chain" ("name", "number_hotels", "adress", "email", "phone") VALUES ('chain2', 5, 'adress2', 'email2', 'phone2')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."chain" ("name", "number_hotels", "adress", "email", "phone") VALUES ('chain3', 5, 'adress3', 'email3', 'phone3')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."chain" ("name", "number_hotels", "adress", "email", "phone") VALUES ('chain4', 5, 'adress4', 'email4', 'phone4')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."chain" ("name", "number_hotels", "adress", "email", "phone") VALUES ('chain5', 5, 'adress5', 'email5', 'phone5')ON CONFLICT DO NOTHING;
 
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel1', 5, 'chain1', 1, 'adress1', 'email1', 'phone1') ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel2', 5, 'chain1', 2, 'adress1', 'email2', 'phone2')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel3', 5, 'chain1', 3, 'adress3', 'email3', 'phone3')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel4', 5, 'chain1', 4, 'adress4', 'email4', 'phone4')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel5', 5, 'chain1', 5, 'adress5', 'email5', 'phone5')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel6', 5, 'chain1', 1, 'adress6', 'email6', 'phone6')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel7', 5, 'chain1', 2, 'adress7', 'email7', 'phone7')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel8', 5, 'chain1', 3, 'adress8', 'email8', 'phone8')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel11', 5, 'chain2', 1, 'adress11', 'email11', 'phone11')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel12', 5, 'chain2', 2, 'adress12', 'email12', 'phone12')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel13', 5, 'chain2', 3, 'adress13', 'email13', 'phone13')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel14', 5, 'chain2', 4, 'adress14', 'email14', 'phone14')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel15', 5, 'chain2', 5, 'adress15', 'email15', 'phone15')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel16', 5, 'chain2', 1, 'adress16', 'email16', 'phone16')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel17', 5, 'chain2', 2, 'adress17', 'email17', 'phone17')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel18', 5, 'chain2', 3, 'adress18', 'email18', 'phone18')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel21', 5, 'chain3', 1, 'adress21', 'email21', 'phone21')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel22', 5, 'chain3', 2, 'adress22', 'email22', 'phone22')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel23', 5, 'chain3', 3, 'adress23', 'email23', 'phone23')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel24', 5, 'chain3', 4, 'adress24', 'email24', 'phone24')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel25', 5, 'chain3', 5, 'adress25', 'email25', 'phone25')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel26', 5, 'chain3', 1, 'adress26', 'email26', 'phone26')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel27', 5, 'chain3', 2, 'adress27', 'email27', 'phone27')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel28', 5, 'chain3', 3, 'adress28', 'email28', 'phone28')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel31', 5, 'chain4', 1, 'adress31', 'email31', 'phone31')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel32', 5, 'chain4', 2, 'adress32', 'email32', 'phone32')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel33', 5, 'chain4', 3, 'adress33', 'email33', 'phone33')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel34', 5, 'chain4', 4, 'adress34', 'email34', 'phone34')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel35', 5, 'chain4', 5, 'adress35', 'email35', 'phone35')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel36', 5, 'chain4', 1, 'adress36', 'email36', 'phone36')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel37', 5, 'chain4', 2, 'adress37', 'email37', 'phone37')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel38', 5, 'chain4', 3, 'adress38', 'email38', 'phone38')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel41', 5, 'chain5', 1, 'adress41', 'email41', 'phone41')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel42', 5, 'chain5', 2, 'adress42', 'email42', 'phone42')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel43', 5, 'chain5', 3, 'adress43', 'email43', 'phone43')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel44', 5, 'chain5', 4, 'adress44', 'email44', 'phone44')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel45', 5, 'chain5', 5, 'adress45', 'email45', 'phone45')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel46', 5, 'chain5', 1, 'adress46', 'email46', 'phone46')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel47', 5, 'chain5', 2, 'adress47', 'email47', 'phone47')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel48', 5, 'chain5', 3, 'adress48', 'email48', 'phone48')ON CONFLICT DO NOTHING;
+
+
+INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate") VALUES ('0', '1999-01-01', '2018-12-31')ON CONFLICT DO NOTHING;
 INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate") VALUES ('1', '2018-01-01', '2018-12-31')ON CONFLICT DO NOTHING;
 INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate") VALUES ('2', '2018-01-01', '2018-12-31')ON CONFLICT DO NOTHING;
 INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate") VALUES ('3', '2018-01-01', '2018-12-31')ON CONFLICT DO NOTHING;
@@ -59,24 +145,256 @@ INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate") VALUE
 INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate") VALUES ('5', '2018-01-01', '2018-12-31')ON CONFLICT DO NOTHING;
 INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate") VALUES ('6', '2018-01-01', '2018-12-31')ON CONFLICT DO NOTHING;
 
-INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'single', 100, 1, 'free', 'tv', 'hotel1', '1')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'double', 150, 1, 'free', 'tv', 'hotel1', '1')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'triple', 170, 1, 'free', 'tv', 'hotel1', '1')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'four', 120, 1, 'free', 'tv', 'hotel1', '1')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'five', 130, 1, 'free', 'tv', 'hotel1', '1')ON CONFLICT DO NOTHING;
 
-INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'single', 120, 1, 'free', 'tv', 'hotel2', '2')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'double', 150, 1, 'free', 'tv', 'hotel2', '2')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'triple', 160, 1, 'free', 'tv', 'hotel2', '2')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'four', 130, 1, 'free', 'tv', 'hotel2', '2')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'five', 150, 1, 'free', 'tv', 'hotel2', '2')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'mountain view', 100, 1, 'free', 'tv', 'hotel1', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'sea view', 150, 2 'free', 'tv', 'hotel1', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 170, 3, 'free', 'tv', 'hotel1', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'mountain view', 120, 4, 'free', 'tv', 'hotel1', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'sea view', 130, 5, 'free', 'tv', 'hotel1', '0')ON CONFLICT DO NOTHING;
 
-INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'single', 110, 1, 'free', 'tv', 'hotel3', '3')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'double', 130, 1, 'free', 'tv', 'hotel3', '3')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'triple', 130, 1, 'free', 'tv', 'hotel3', '3')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'four', 110, 1, 'free', 'tv', 'hotel3', '3')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'five', 140, 1, 'free', 'tv', 'hotel3', '3')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'mountain view', 120, 1, 'free', 'tv', 'hotel2', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'mountain view', 150, 2, 'free', 'tv', 'hotel2', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'sea view', 160, 3, 'free', 'tv', 'hotel2', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'mountain view', 130, 4, 'free', 'tv', 'hotel2', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 150, 5, 'free', 'tv', 'hotel2', '0')ON CONFLICT DO NOTHING;
 
-INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'five', 140, 1, 'free', 'tv', 'hotel4', NULL );
-INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'five', 140, 1, 'free', 'tv', 'hotel4', NULL );
-INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'five', 140, 1, 'free', 'tv', 'hotel4', NULL );
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'sea view', 210, 1, 'free', 'tv', 'hotel3', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'mountain view', 130, 2, 'free', 'tv', 'hotel3', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'sea view', 130, 3, 'free', 'tv', 'hotel3', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'sea view', 110, 4, 'free', 'tv', 'hotel3', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel3', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'mountain view', 210, 1, 'free', 'tv', 'hotel4', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'sea view', 130, 2, 'free', 'tv', 'hotel4', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 130, 3, 'free', 'tv', 'hotel4', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'mountain view', 110, 4, 'free', 'tv', 'hotel4', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel4', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'sea view', 210, 1, 'free', 'tv', 'hotel5', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'mountain view', 130, 2, 'free', 'tv', 'hotel5', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'sea view', 130, 3, 'free', 'tv', 'hotel5', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'mountain view', 110, 4, 'free', 'tv', 'hotel5', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel5', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'sea view', 210, 1, 'free', 'tv', 'hotel6', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'mountain view', 130, 2, 'free', 'tv', 'hotel6', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 130, 3, 'free', 'tv', 'hotel6', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'sea view', 110, 4, 'free', 'tv', 'hotel6', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel6', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'sea view', 210, 1, 'free', 'tv', 'hotel7', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'mountain view', 130, 2, 'free', 'tv', 'hotel7', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 130, 3, 'free', 'tv', 'hotel7', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'sea view', 210, 4, 'free', 'tv', 'hotel7', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel7', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'mountain view', 110, 1, 'free', 'tv', 'hotel8', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'sea view', 130, 2, 'free', 'tv', 'hotel8', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 130, 3, 'free', 'tv', 'hotel8', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'sea view', 110, 4, 'free', 'tv', 'hotel8', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel8', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'mountain view', 210, 1, 'free', 'tv', 'hotel11', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'sea view', 130, 2, 'free', 'tv', 'hotel11', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 130, 3, 'free', 'tv', 'hotel11', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'sea view', 210, 4, 'free', 'tv', 'hotel11', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel11', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'mountain view', 110, 1, 'free', 'tv', 'hotel12', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'sea view', 130, 2, 'free', 'tv', 'hotel12', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 130, 3, 'free', 'tv', 'hotel12', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'mountain view', 110, 4, 'free', 'tv', 'hotel12', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'sea view', 140, 5, 'free', 'tv', 'hotel12', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'mountain view', 210, 1, 'free', 'tv', 'hotel13', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'sea view', 180, 2, 'free', 'tv', 'hotel13', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 130, 3, 'free', 'tv', 'hotel13', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'mountain view', 110, 4, 'free', 'tv', 'hotel13', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'sea view', 140, 5, 'free', 'tv', 'hotel13', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'mountain view', 210, 1, 'free', 'tv', 'hotel14', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'mountain view', 180, 2, 'free', 'tv', 'hotel14', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 130, 3, 'free', 'tv', 'hotel14', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'sea view', 110, 4, 'free', 'tv', 'hotel14', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel14', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'mountain view', 110, 1, 'free', 'tv', 'hotel15', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'sea view', 130, 2, 'free', 'tv', 'hotel15', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 180, 3, 'free', 'tv', 'hotel15', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'sea view', 110, 4, 'free', 'tv', 'hotel15', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel15', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'sea view', 210, 1, 'free', 'tv', 'hotel16', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'mountain view', 130, 2, 'free', 'tv', 'hotel16', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 130, 3, 'free', 'tv', 'hotel16', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'mountain view', 110, 4, 'free', 'tv', 'hotel16', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'sea view', 140, 5, 'free', 'tv', 'hotel16', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'mountain view', 110, 1, 'free', 'tv', 'hotel17', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'sea view', 180, 2, 'free', 'tv', 'hotel17', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 130, 3, 'free', 'tv', 'hotel17', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'sea view', 110, 4, 'free', 'tv', 'hotel17', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel17', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'mountain view', 210, 1, 'free', 'tv', 'hotel18', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'sea view', 130, 2, 'free', 'tv', 'hotel18', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 180, 3, 'free', 'tv', 'hotel18', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'mountain view', 110, 4, 'free', 'tv', 'hotel18', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel18', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'sea view', 110, 1, 'free', 'tv', 'hotel21', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'sea view', 130, 2, 'free', 'tv', 'hotel21', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 130, 3, 'free', 'tv', 'hotel21', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'sea view', 110, 4, 'free', 'tv', 'hotel21', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel21', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'mountain view', 110, 1, 'free', 'tv', 'hotel21', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'mountain view', 180, 2, 'free', 'tv', 'hotel21', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 130, 3, 'free', 'tv', 'hotel21', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'sea view', 210, 4, 'free', 'tv', 'hotel21', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel21', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'sea view', 110, 1, 'free', 'tv', 'hotel22', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'mountain view', 130, 2, 'free', 'tv', 'hotel22', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 180, 3, 'free', 'tv', 'hotel22', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'sea view', 110, 4, 'free', 'tv', 'hotel22', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel22', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'mountain view', 110, 1, 'free', 'tv', 'hotel23', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'mountain view', 130, 2, 'free', 'tv', 'hotel23', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'sea view', 130, 3, 'free', 'tv', 'hotel23', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'mountain view', 110, 4, 'free', 'tv', 'hotel23', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel23', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'sea view', 110, 1, 'free', 'tv', 'hotel24', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'mountain view', 130, 2, 'free', 'tv', 'hotel24', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 180, 3, 'free', 'tv', 'hotel24', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'sea view', 210, 4, 'free', 'tv', 'hotel24', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel24', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'mountain view', 110, 1, 'free', 'tv', 'hotel25', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'mountain view', 130, 2, 'free', 'tv', 'hotel25', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'sea view', 130, 3, 'free', 'tv', 'hotel25', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'mountain view', 110, 4, 'free', 'tv', 'hotel25', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel25', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'sea view', 110, 1, 'free', 'tv', 'hotel26', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'mountain view', 130, 2, 'free', 'tv', 'hotel26', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 180, 3, 'free', 'tv', 'hotel26', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'sea view', 110, 4, 'free', 'tv', 'hotel26', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel26', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'sea view', 110, 1, 'free', 'tv', 'hotel27', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'mountain view', 130, 2, 'free', 'tv', 'hotel27', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 130, 3, 'free', 'tv', 'hotel27', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'sea view', 210, 4, 'free', 'tv', 'hotel27', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel27', '0')ON CONFLICT DO NOTHING;
+
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'mountain view', 110, 1, 'free', 'tv', 'hotel28', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'sea view', 180, 2, 'free', 'tv', 'hotel28', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 130, 3, 'free', 'tv', 'hotel28', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'sea view', 110, 4, 'free', 'tv', 'hotel28', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel28', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'mountain view', 110, 1, 'free', 'tv', 'hotel31', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'mountain view', 130, 2, 'free', 'tv', 'hotel31', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'sea view', 130, 3, 'free', 'tv', 'hotel31', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'mountain view', 110, 4, 'free', 'tv', 'hotel31', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel31', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'sea view', 110, 1, 'free', 'tv', 'hotel32', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'sea view', 180, 2, 'free', 'tv', 'hotel32', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 130, 3, 'free', 'tv', 'hotel32', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'mountain view', 210, 4, 'free', 'tv', 'hotel32', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel32', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'sea view', 110, 1, 'free', 'tv', 'hotel33', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'mountain view', 130, 2, 'free', 'tv', 'hotel33', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 130, 3, 'free', 'tv', 'hotel33', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'sea view', 110, 4, 'free', 'tv', 'hotel33', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel33', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'mountain view', 110, 1, 'free', 'tv', 'hotel34', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'sea view', 180, 2, 'free', 'tv', 'hotel34', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 130, 3, 'free', 'tv', 'hotel34', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'sea view', 110, 4, 'free', 'tv', 'hotel34', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel34', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'sea view', 210, 1, 'free', 'tv', 'hotel35', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'mountain view', 130, 2, 'free', 'tv', 'hotel35', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'sea view', 130, 3, 'free', 'tv', 'hotel35', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'mountain view', 110, 4, 'free', 'tv', 'hotel35', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel35', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'sea view', 110, 1, 'free', 'tv', 'hotel36', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'sea view', 180, 2, 'free', 'tv', 'hotel36', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 130, 3, 'free', 'tv', 'hotel36', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'mountain view', 110, 4, 'free', 'tv', 'hotel36', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'sea view', 140, 5, 'free', 'tv', 'hotel36', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'mountain view', 210, 1, 'free', 'tv', 'hotel37', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'sea view', 130, 2, 'free', 'tv', 'hotel37', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'sea view', 180, 3, 'free', 'tv', 'hotel37', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'mountain view', 110, 4, 'free', 'tv', 'hotel37', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel37', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'sea view', 110, 1, 'free', 'tv', 'hotel38', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'mountain view', 130, 2, 'free', 'tv', 'hotel38', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 130, 3, 'free', 'tv', 'hotel38', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'sea view', 210, 4, 'free', 'tv', 'hotel38', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'sea view', 140, 5, 'free', 'tv', 'hotel38', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'mountain view', 110, 1, 'free', 'tv', 'hotel41', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'sea view', 180, 2, 'free', 'tv', 'hotel41', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 130, 3, 'free', 'tv', 'hotel41', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'sea view', 110, 4, 'free', 'tv', 'hotel41', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'sea view', 140, 5, 'free', 'tv', 'hotel41', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'mountain view', 110, 1, 'free', 'tv', 'hotel42', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'mountain view', 130, 2, 'free', 'tv', 'hotel42', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'sea view', 180, 3, 'free', 'tv', 'hotel42', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'sea view', 210, 4, 'free', 'tv', 'hotel42', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel42', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'sea view', 110, 1, 'free', 'tv', 'hotel43', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'mountain view', 130, 2, 'free', 'tv', 'hotel43', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 130, 3, 'free', 'tv', 'hotel43', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'sea view', 110, 4, 'free', 'tv', 'hotel43', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel43', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'sea view', 110, 1, 'free', 'tv', 'hotel44', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'mountain view', 180, 2, 'free', 'tv', 'hotel44', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 130, 3, 'free', 'tv', 'hotel44', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'sea view', 110, 4, 'free', 'tv', 'hotel44', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'sea view', 140, 5, 'free', 'tv', 'hotel44', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'mountain view', 210, 1, 'free', 'tv', 'hotel45', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'sea view', 130, 2, 'free', 'tv', 'hotel45', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 180, 3, 'free', 'tv', 'hotel45', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'sea view', 110, 4, 'free', 'tv', 'hotel45', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'sea view', 140, 5, 'free', 'tv', 'hotel45', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'mountain view', 110, 1, 'free', 'tv', 'hotel46', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'mountain view', 130, 2, 'free', 'tv', 'hotel46', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'sea view', 130, 3, 'free', 'tv', 'hotel46', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'sea view', 110, 4, 'free', 'tv', 'hotel46', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel46', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'mountain view', 110, 1, 'free', 'tv', 'hotel47', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'sea view', 180, 2, 'free', 'tv', 'hotel47', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'mountain view', 130, 3, 'free', 'tv', 'hotel47', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'sea view', 210, 4, 'free', 'tv', 'hotel47', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel47', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'sea view', 110, 1, 'free', 'tv', 'hotel48', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'mountain view', 180, 2, 'free', 'tv', 'hotel48', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (3, 'sea view', 130, 3, 'free', 'tv', 'hotel48', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (4, 'mountain view', 110, 4, 'free', 'tv', 'hotel48', '0')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel48', '0')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."chain" ("name", "number_hotels", "adress", "email", "phone") VALUES ('chain6', 5, 'adress5', 'email5', 'phone5')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel101', 5, 'chain6', 1, 'adress41', 'email41', 'phone41')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'sea view', 140, 1, 'used', 'tv', 'hotel101', '1')ON CONFLICT DO NOTHING;
+
+
