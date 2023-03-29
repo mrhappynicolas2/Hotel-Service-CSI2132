@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
   <style>
+    *{
+      font-family: 'Epilogue', sans-serif; 
+    }
     ul {
       list-style-type: none;
       margin: 0;
@@ -24,6 +27,40 @@
     li a:hover {
       background-color: #111111;
     }
+
+    .button{
+    margin-top: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    border-radius: 30px;
+    background-color: #000;
+    color: #fff;
+    line-height: inherit;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: 2px solid #000;
+    letter-spacing: -0.01em;
+    transition: background-color 500ms ease;
+    }
+
+    .button:hover{
+    border: 2px solid #000;
+    background-color: transparent;
+    color: #000;
+    }
+
+    .logout_page{
+      margin-top: 10px;
+      display: flexbox;
+      padding-left: 10px;
+    }
+    .logo_inquiries{
+      margin-top: 30px;
+      display: flexbox;
+    }
     </style>
   <head>
     <title>Hotel Company</title>
@@ -36,15 +73,18 @@
     </ul>
   </nav>
   <body>
+    <div class="logout_page">
     <header>
       <h1>You have succesfully logged out</h1>
+      <a href="index.html" class="button">Back to Mainpage</a>
 
     </header>
-    <footer>
+    <footer class="logo_inquiries">
       <img src="logo.png" alt="logo of the company">
       <p>&copy; 2023 Hotel Company</p>
-      <p>For inquiries, email at ehotels@gmail.ca</p>
+      <p>For inquiries, email at EHotels@gmail.ca</p>
     </footer>
+  </div>
   </body>
 </html>
 
