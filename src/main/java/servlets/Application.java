@@ -36,11 +36,11 @@ public class Application {
      * @param name will be the name of the table
      * @param variables variables will be a string array of the variables in 
      * the table in the format (NAME TYPE), examlpes: (name VARCHAR(20)), (age INT)
-     * @param location will be the location of the table, example: "public","test"
+     * @param schema will be the schema of the table, example: "public","test"
      * @throws SQLException
      **/
-    public void createTable(String name ,String[] variables, String location){
-        String sql = "CREATE TABLE IF NOT EXISTS \""+location+"\"." + name + " (";
+    public void createTable(String name ,String[] variables, String schema){
+        String sql = "CREATE TABLE IF NOT EXISTS \""+schema+"\"." + name + " (";
         int i;
         for (i = 0; i < variables.length-1; i++) {
             sql = sql+variables[i]+", ";
@@ -63,8 +63,8 @@ public class Application {
      * @param tableCollumn A array with the name of the collumns
      * @param values A array with the values to be inserted (make sure they have '' around them if they are strings, example: 'Bob')
      */
-    public void insertIntoTable(String tableName, String[] tableCollumn, String[] values, String location){ 
-        String sql = "INSERT INTO " + "\""+location+"\"." + tableName + " (";
+    public void insertIntoTable(String tableName, String[] tableCollumn, String[] values, String schema){ 
+        String sql = "INSERT INTO " + "\""+schema+"\"." + tableName + " (";
         int i;
         for (i = 0; i < tableCollumn.length-1; i++) {
             sql = sql+tableCollumn[i]+", ";
@@ -126,9 +126,9 @@ public class Application {
      * 
      * @param tableName Name of table
      * @param variable The variables to be selected
-     * @param schema The location of the schema
+     * @param schema The schema of the schema
      */
-    public void selectFromTable(String tableName ,String[] variable, String location){
+    public void selectFromTable(String tableName ,String[] variable, String schema){
         try(Connection conn = this.connect();){
 
             Statement statement = conn.createStatement();
@@ -142,7 +142,7 @@ public class Application {
             //if only 1 variable is given in the command line
             else if(variable.length == 1){
                 // Execute a query
-                sql = "SELECT " + variable[0] + " FROM \""+location+"\"." + tableName + ";";
+                sql = "SELECT " + variable[0] + " FROM \""+schema+"\"." + tableName + ";";
                 
             }
 
@@ -153,7 +153,7 @@ public class Application {
             for (i = 0; i < variable.length-1; i++) {
                 sql = sql+variable[i]+", ";
             }
-            sql = sql+variable[i]+") FROM \""+location+"\"." + tableName + ";";}
+            sql = sql+variable[i]+") FROM \""+schema+"\"." + tableName + ";";}
             
             // Process the results
             ResultSet resultSet = statement.executeQuery(sql);
@@ -195,7 +195,7 @@ public class Application {
      * @param schema Name of the schema 
      * @param where specifics of what your serching for (example: name = 'Bob', age = 20")
      */
-    public List<String> selectFromTable(String tableName ,String[] variable, String location, String[] where){
+    public List<String> selectFromTable(String tableName ,String[] variable, String schema, String[] where){
         List<String> searchResult = new ArrayList<String>();
         try(Connection conn = this.connect();){
             
@@ -210,7 +210,7 @@ public class Application {
             //if only 1 variable is given in the command line
             else if(variable.length == 1){
                 // Execute a query
-                sql = "SELECT " + variable[0] + " FROM \""+location+"\"." + tableName;
+                sql = "SELECT " + variable[0] + " FROM \""+schema+"\"." + tableName;
                 
             }
 
@@ -221,7 +221,7 @@ public class Application {
                 for (i = 0; i < variable.length-1; i++) {
                     sql = sql+variable[i]+", ";
                 }
-                sql = sql+variable[i]+") FROM \""+location+"\"." + tableName;
+                sql = sql+variable[i]+") FROM \""+schema+"\"." + tableName;
             }
             
             if (where.length == 0) {
