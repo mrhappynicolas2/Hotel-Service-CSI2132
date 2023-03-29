@@ -1,7 +1,7 @@
-DROP TABLE "Hotels"."rooms";
-DROP TABLE "Hotels"."hotels";
-DROP TABLE "Hotels"."chain";
+DROP TABLE "Hotels"."rooms" CASCADE;
+DROP TABLE "Hotels"."hotels" CASCADE;
+DROP TABLE "Hotels"."chain" CASCADE;
 
-DROP TABLE "Hotels"."agreement";
-DROP TABLE "Hotels"."customer";
-DROP TABLE "Hotels"."employee";
+DROP TABLE "Hotels"."agreement" CASCADE;
+DROP TABLE "Hotels"."customer" CASCADE;
+DROP TABLE "Hotels"."employee" CASCADE;

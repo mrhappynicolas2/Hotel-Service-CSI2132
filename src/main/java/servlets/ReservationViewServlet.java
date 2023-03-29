@@ -40,7 +40,7 @@ public class ReservationViewServlet extends HttpServlet {
             
 
             String[] tablename = {"agreement", "rooms"};
-			String[] select = {"\"Hotels\".agreement.agreement_num", "\"Hotels\".rooms.hotel_name", "\"Hotels\".rooms.room_num", "\"Hotels\".rooms.room_type", "\"Hotels\".rooms.room_price", "\"Hotels\".rooms.room_capacity"};
+			String[] select = {"\"Hotels\".agreement.agreement_num", "\"Hotels\".rooms.hotel_name", "\"Hotels\".rooms.room_num", "\"Hotels\".rooms.room_type", "\"Hotels\".rooms.room_price", "\"Hotels\".rooms.room_capacity", "\"Hotels\".agreement.ssn"};
 			String value[] = {"room_status = 'free'"};
             String where[] = {"\"Hotels\".rooms.room_num = \"Hotels\".agreement.room", "\"Hotels\".rooms.hotel_name = \"Hotels\".agreement.hotel"};
             
@@ -86,7 +86,6 @@ public class ReservationViewServlet extends HttpServlet {
 		String middle = "";
 			for (int i = 0; i < Foundboocking.size(); i++) {
 				String[] Categori = Foundboocking.get(i).split(",");
-				//edit this so instead of being hotels.room.room_price, its only the stuff after the :
 				middle += ""
 				+"<tr>"
 					+"<td>" + Categori[0] + "</td>"

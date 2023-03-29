@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS "Hotels"."agreement"
     "status" character varying(20),
     "room" integer,
     "hotel" character varying(20),
+    "ssn" integer,
     CONSTRAINT "agreement_pkey" PRIMARY KEY ("agreement_num")
 );
 
@@ -97,6 +98,15 @@ ADD CONSTRAINT agreement_rooms_fkey FOREIGN KEY ("room","hotel")
         ON UPDATE CASCADE
         ON DELETE CASCADE;
 
+ALTER TABLE "Hotels"."agreement"
+DROP CONSTRAINT IF EXISTS agreement_ssn_fkey;
+
+ALTER TABLE "Hotels"."agreement"
+ADD CONSTRAINT agreement_ssn_fkey FOREIGN KEY ("ssn") 
+        REFERENCES "Hotels"."customer" ("ssnC") MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE;
+
 
 INSERT INTO "Hotels"."chain" ("name", "number_hotels", "adress", "email", "phone") VALUES ('chain1', 5, 'adress1', 'email1', 'phone1')ON CONFLICT DO NOTHING;
 INSERT INTO "Hotels"."chain" ("name", "number_hotels", "adress", "email", "phone") VALUES ('chain2', 5, 'adress2', 'email2', 'phone2')ON CONFLICT DO NOTHING;
@@ -149,9 +159,13 @@ INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress
 INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel47', 5, 'chain5', 2, 'adress47', 'email47', 'phone47')ON CONFLICT DO NOTHING;
 INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel48', 5, 'chain5', 3, 'adress48', 'email48', 'phone48')ON CONFLICT DO NOTHING;
 
+INSERT INTO "Hotels"."customer" ("ssnC", "name", "adress", "username", "password", "registrationdate", "phone") VALUES (145, 'customer1', 'adress1', 'username1', 'password1', '2018-01-01', 123456789)ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."customer" ("ssnC", "name", "adress", "username", "password", "registrationdate", "phone") VALUES (146, 'customer1', 'adress1', 'username1', 'password1', '2018-01-01', 133456789)ON CONFLICT DO NOTHING;
 
-INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate", "status", "room", "hotel") VALUES ('0', '1999-01-01', '2018-12-31', 'empty', NULL, NULL )ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate", "status", "room", "hotel") VALUES ('1', '2018-01-01', '2018-12-31', 'empty', NULL, NULL)ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate", "status", "room", "hotel", "ssn") VALUES ('0', '1999-01-01', '2018-12-31', 'empty', NULL, NULL, 145)ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate", "status", "room", "hotel", "ssn") VALUES ('1', '2018-01-01', '2018-12-31', 'empty', NULL, NULL, 146)ON CONFLICT DO NOTHING;
+
+
 
 INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'mountain view', 100, 1, 'free', 'tv', 'hotel1', '0')ON CONFLICT DO NOTHING;
 INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (2, 'sea view', 150, 2, 'free', 'tv', 'hotel1', '0')ON CONFLICT DO NOTHING;

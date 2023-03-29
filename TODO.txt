@@ -5,15 +5,19 @@ In SearchServlet:
         Right now it will search the name of a hotel with the exact name and will search for the number_hotels which is > then what you typed
 
 In Application:
-    Change the way the selectFromTable function works, right now you cant use the LIKE command
+    Change the way the selectFromTable function works, right now you cant use the LIKE command <-- maybe not if we dont need it
 
 In ReservationServlet: 
     -fix ReservationViewServlet
 
+Add a Admin servlet 
+    Ability to edit employee and customer data 
+    
+
 SQL:
-	Change "agreement" to have a foreign key connected to client and rooms
-		might cause a issue since instead of null, 0 was used
-	change Adress to be a multi-variable
+	Change "agreement" to have a foreign key connected to client and rooms, currently only rooms
+	Change Adress to be a multi-variable
+    Add location (town) to hotel
+    Add customer and employee data
+        
 
-
-General:
