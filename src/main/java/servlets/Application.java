@@ -414,6 +414,9 @@ public class Application {
 
             String[][] testQuery2 = {{"room_status = 'reserved'", "room_annimities = 'test3'"},{"agreement_num = '1'", "room_type = 'five'"}};
             app.updateRow("rooms", "Hotels", testQuery2[0], testQuery2[1]);
+            
+            String[][] testQuery3 = {{"room = 1", "hotel = 'hotel101'"},{"agreement_num = 1"}};
+            app.updateRow("agreement", "Hotels", testQuery3[0], testQuery3[1]);
         }
     }
 
