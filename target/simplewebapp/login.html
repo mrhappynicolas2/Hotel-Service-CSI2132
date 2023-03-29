@@ -1,4 +1,7 @@
 <style>
+  *{
+      font-family: 'Epilogue', sans-serif; 
+    }
     ul {
       list-style-type: none;
       margin: 0;
@@ -21,6 +24,42 @@
     
     li a:hover {
       background-color: #111111;
+      transition: background-color 900ms ease;
+    }
+
+    .DB_Login{
+      padding-left: 5px;
+    }
+
+    label,input{
+      display: block;
+    }
+
+    label{
+      margin-bottom: 20px;
+    }
+
+    .button{
+    margin-top: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-right: 15px;
+    padding: 10px 15px;
+    border-radius: 30px;
+    background-color: #000;
+    color: #fff;
+    line-height: inherit;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: 2px solid #000;
+    letter-spacing: -0.01em;
+    transition: background-color 500ms ease;
+    }
+
+    .button:hover{
+    border: 2px solid #000;
+    background-color: transparent;
+    color: #000;
     }
     </style>
 	<nav>
@@ -30,11 +69,17 @@
       <li><a href="Reservation.html">Employee Section</a></li>
 		</ul>
 	  </nav>
+    <div class="DB_Login">
 	  <h1>Database Login</h1>
 <form action="LoginServlet" method="post">
-	Username:<input type="text" name="userid"><br>
-	Password:<input type="password" name="password"><br>
-	<input type="submit" value="submit">
+  <label>
+	Username: <input type="text" name="userid">
+  </label>
+  <label>
+	Password: <input type="password" name="password">
+  </label>
+	<input type="submit" value="Submit" class="button">
   <p>&copy; 2023 Hotel Company</p>
-  <p>For inquiries, email at ehotels@gmail.ca</p>
+  <p>For inquiries, email at EHotels@gmail.ca</p>
+</div>
 </form>

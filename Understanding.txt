@@ -54,4 +54,13 @@ Application.java is used for connecting to the database
 
 	deleteFromTable: --NOT IMPLEMENTED YET--
 
+	foreignSelect: used when you want to connect a foreign key to a 2 tables (example in main)
+	/**
+     * 
+     * @param tableName Table names
+     * @param variable Name of column
+     * @param schema Name of the schema 
+     * @param where specifics of what your serching for (example: name = 'Bob', age = 20")
+     */
+
 	main: Used to create the database and test some stuff

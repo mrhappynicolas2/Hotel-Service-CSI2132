@@ -332,6 +332,117 @@ public class Application {
         }
     }
 
+    /**
+     * 
+     * @param tableName Table names
+     * @param variable Name of column
+     * @param schema Name of the schema 
+     * @param where specifics of what your serching for (example: name = 'Bob', age = 20")
+     */
+    public List<String> foreignSelect(String[] tableName, String[] variable, String schema, String[] where){
+        List<String> searchResult = new ArrayList<String>();
+        try(Connection conn = this.connect();){
+            
+            Statement statement = conn.createStatement();
+            String sql = "SELECT (";
+            //if no variables are given in the command line
+            if (variable.length == 0) {
+                System.out.println("No variables has been selected");
+                return searchResult;
+            }
+
+            //if only 1 variable is given in the command line
+            else if(variable.length == 1){
+                // Execute a query
+                if(tableName.length == 1) {sql = "SELECT " + variable[0] + " FROM \""+schema+"\"." + tableName;}
+                else{
+                    sql = sql + variable[0] +")" + " FROM \""+schema+"\".";
+                    for(int i = 0; i<tableName.length-1; i++){
+                         sql = sql + tableName[i] + ", ";
+                    }
+                    sql = sql +"\""+ schema +"\"."+ tableName[tableName.length-1];
+                }
+                
+            }
+
+            else{
+            // Execute a query
+                sql = "SELECT (";
+                int i = 0;
+                for (i = 0; i < variable.length-1; i++) {
+                    sql = sql+variable[i]+", ";
+                }
+
+                if(tableName.length == 1) {sql = "SELECT " + variable[0] + " FROM \""+schema+"\"." + tableName;}
+                
+                else{
+                    sql = sql+variable[i]+") FROM \""+schema+"\".";
+                    for(int j = 0; j<tableName.length-1; j++){
+                         sql = sql + tableName[j] + ", \""+schema+"\".";
+                    }
+                    sql = sql + tableName[tableName.length-1];
+                }
+               
+            }
+            
+            if (where.length == 0) {
+                System.out.println("No where statement has been given");
+                return searchResult;
+            }
+            else if (where.length == 1) {
+                sql = sql + " WHERE " + where[0] + ";";
+            }
+            else {
+                sql = sql + " WHERE ";
+                int i;
+                for (i =0; i<where.length-1; i++){
+                    sql = sql + where[i] + " AND " ;
+                }
+                sql = sql + where[i] + ";";
+            }
+
+
+            // Process the results
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                
+                if (variable.length == 1){
+                    for (int i = 0; i < variable.length; i++) {
+                        String variableName = resultSet.getString(variable[i]);
+                        System.out.print(variable[i] + ": " + variableName);
+                        searchResult.add(variable[i] + ": " + variableName);
+                    }
+                    System.out.println();
+                }
+
+                if (variable.length > 1){
+                    String stringResult = "";
+                    for (int i = 0; i < variable.length; i++) {
+                        String variableName = resultSet.getString("row");
+                        variableName = variableName.substring(1,variableName.indexOf(")"));
+                        String[] variableName2 = variableName.split(",");
+                        System.out.print(variable[i] + ": " + variableName2[i]+", ");
+                        stringResult = stringResult+variable[i] + ": " + variableName2[i]+", ";
+                        if (variableName2.length == i+1){
+                            break;
+                        }
+                    }
+                    System.out.println();
+                    searchResult.add(stringResult);
+                }
+
+
+            }} catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+//catch arrayoutofbounds exception
+            catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println(e.getMessage());
+            }
+
+            return searchResult;
+
+    }
     //* This will reset the database to the project.sql version */
     public void databaseRefresh(Application app){
         
@@ -415,8 +526,26 @@ public class Application {
             String[][] testQuery2 = {{"room_status = 'reserved'", "room_annimities = 'test3'"},{"agreement_num = '1'", "room_type = 'five'"}};
             app.updateRow("rooms", "Hotels", testQuery2[0], testQuery2[1]);
             
-            String[][] testQuery3 = {{"room = 1", "hotel = 'hotel101'"},{"agreement_num = 1"}};
+            String[][] testQuery3 = {{"room = 1", "hotel = 'hotel101'"},{"agreement_num = '1'"}};
             app.updateRow("agreement", "Hotels", testQuery3[0], testQuery3[1]);
+
+            String[] tablename = {"agreement", "rooms"};
+			String[] select = {"\"Hotels\".agreement.agreement_num", "\"Hotels\".rooms.hotel_name", "\"Hotels\".rooms.room_num", "\"Hotels\".rooms.room_type", "\"Hotels\".rooms.room_price", "\"Hotels\".rooms.room_capacity"};
+			String value[] = {"room_status = 'free'"};
+            String where[] = {"\"Hotels\".rooms.room_num = \"Hotels\".agreement.room", "\"Hotels\".rooms.hotel_name = \"Hotels\".agreement.hotel"};
+            List<String> test = app.foreignSelect(tablename, select,"Hotels", where);
+            
+            String query = "\"Hotels\".agreement.agreement_num: 1" ;
+			for (String s: test ) {
+				if (s.startsWith(query))
+				 System.out.println(s);
+            }
+            System.out.println("end");
+            
+
+            
+
+
         }
     }
 

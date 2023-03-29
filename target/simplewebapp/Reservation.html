@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
   <style>
+    *{
+      font-family: 'Epilogue', sans-serif; 
+    }
     ul {
       list-style-type: none;
       margin: 0;
@@ -23,32 +26,63 @@
     
     li a:hover {
       background-color: #111111;
+      transition: background-color 900ms ease;
     }
+
+    .button{
+    margin-top: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-right: 15px;
+    padding: 10px 15px;
+    border-radius: 30px;
+    background-color: #000;
+    color: #fff;
+    line-height: inherit;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: 2px solid #000;
+    letter-spacing: -0.01em;
+    transition: background-color 500ms ease;
+    }
+
+    .button:hover{
+    border: 2px solid #000;
+    background-color: transparent;
+    color: #000;
+    }
+
+    .reservation_page{
+      padding-left: 10px;
+    }
+
+    .admin_button{
+      display: flex;
+    }
+
     </style>
-    <ul>
+    <ul class="navbar">
       <li><a href="index.html">Home</a></li>
       <li><a href="Search.html">Available Rooms</a></li>
       <li><a href="Reservation.html">Employee Section</a></li>
     </ul>
-  <head>
-    <title>Employee Reservation</title>
-  </head>
   <body>
-    
+    <div class="reservation_page">
 	<h1>Search for Reservation</h1>
         <form action="ReservationServlet" method="post">
-            Reservation ID:<input type="text" name="reservationID"><br>
-            <input type="submit" value="Search for reservation">
+            Reservation ID: <input type="text" name="reservationID"><br>
+            <input type="submit" value="Search for reservation" class="button">
         </form>
 
 	</form>
 
   <h2>Admin login page</h2>
-  <p>
-    <a href="admin.html">Admin Page</a>
+  <p class="admin_button">
+    <a href="admin.html" class="button">Admin Page</a>
   </p>
 
   <p>&copy; 2023 Hotel Company</p>
-  <p>For inquiries, email at ehotels@gmail.ca</p>
+  <p>For inquiries, email at EHotels@gmail.ca</p>
 </body>
+</div>
 </html>

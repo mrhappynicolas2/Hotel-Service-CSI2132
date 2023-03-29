@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
   <style>
+     *{
+      font-family: 'Epilogue', sans-serif; 
+    }
     ul {
       list-style-type: none;
       margin: 0;
@@ -23,7 +26,46 @@
     
     li a:hover {
       background-color: #111111;
+      transition: background-color 900ms ease;
     }
+
+    .search_page{
+      padding-left: 5px;  
+      margin-bottom: 10px;
+    }
+
+    .button{
+    margin-top: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-right: 15px;
+    padding: 10px 15px;
+    border-radius: 30px;
+    background-color: #000;
+    color: #fff;
+    line-height: inherit;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: 2px solid #000;
+    letter-spacing: -0.01em;
+    transition: background-color 500ms ease;
+    }
+
+    .button:hover{
+    border: 2px solid #000;
+    background-color: transparent;
+    color: #000;
+    }
+
+    label,input{
+      display: block;
+    }
+
+    label{
+      margin-bottom: 20px;
+    }
+
+
     </style>
     <nav>
       <ul>
@@ -36,27 +78,36 @@
 	<title>Search Example</title>
 </head>
 <body>
-    
+  <div class="search_page"> 
 	<h1>Search for Items</h1>
         <form action="SearchServlet" method="post">
-            Hotel Name:<input type="text" name="hotel"><br>
-            Number of Hotels:<input type="text" name="number"><br>
-            Town
+          <label>
+            Hotel Name: <input type="text" name="hotel">
+          </label>
+          <label>
+            Town: 
             <select id="Area" name="arealist" form="SearchServlet">
               <option value="madrid">Madrid</option>
               <option value="ottawa">Ottawa</option>
               <option value="opel">Opel</option>
               <option value="paris">Paris</option>
               <option value="none">None</option>
-            </select> <br>
-            Max number of rooms:<input type="text" name="numberRooms"><br>
-            Max price:<input type="text" name="maxPrice"><br>
-            Start date<input type="date" id="startDate" name="startDate"><br>
-            End date<input type="date" id="endDate" name="endDate"><br>
+            </select> </label>
+            <label>
+            Max number of rooms: <input type="text" name="numberRooms">
+            </label>
+            <label>
+            Max price: <input type="text" name="maxPrice">
+            </label>
+            <label>
+            Start date: <input type="date" id="startDate" name="startDate">
+            </label>
+            <label>
+            End date: <input type="date" id="endDate" name="endDate">
+          </label>
 
-            <input type="submit" value="Search for availability">
+            <input type="submit" value="Search for availability" class="button">
         </form>
-
-	</form>
+</div> 
 </body>
 </html>

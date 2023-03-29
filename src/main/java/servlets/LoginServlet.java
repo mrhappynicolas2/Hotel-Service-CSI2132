@@ -28,7 +28,7 @@ public class LoginServlet extends HttpServlet {
 		
 		if (!password.equals("admin")) {
 			out.print("Welcome, " + userid);
-			out.print("<li><a href=\"Homepage.html\">Home</a></li>");
+			out.print("<li><a href=\"index.html\">Home</a></li>");
 			HttpSession session = request.getSession();
 			session.setAttribute("name", userid+"_"+password);
 			

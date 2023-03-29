@@ -8,7 +8,7 @@ In Application:
     Change the way the selectFromTable function works, right now you cant use the LIKE command
 
 In ReservationServlet: 
-    -Add ReservationViewServlet
+    -fix ReservationViewServlet
 
 SQL:
 	Change "agreement" to have a foreign key connected to client and rooms

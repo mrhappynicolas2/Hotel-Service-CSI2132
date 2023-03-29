@@ -6,7 +6,7 @@ COMMENT ON SCHEMA "Hotels"
 
 CREATE TABLE IF NOT EXISTS "Hotels"."agreement"
 (
-    "agreement_num" "char" NOT NULL,
+    "agreement_num" character varying(20) NOT NULL,
     "startdate" date,
     "enddate" date,
     "status" character varying(20),
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS "Hotels"."rooms"
     "room_status" character varying(20),
     "room_annimities" character varying(20),
     "hotel_name" character varying(20),
-    "agreement_num" "char",
+    "agreement_num" character varying(20),
     
     CONSTRAINT rooms_pkey PRIMARY KEY ("room_num", "hotel_name"),
     CONSTRAINT rooms_agreement_num_fkey FOREIGN KEY ("agreement_num")
@@ -403,3 +403,5 @@ INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capac
 INSERT INTO "Hotels"."chain" ("name", "number_hotels", "adress", "email", "phone") VALUES ('chain6', 5, 'adress5', 'email5', 'phone5')ON CONFLICT DO NOTHING;
 INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel101', 5, 'chain6', 1, 'adress41', 'email41', 'phone41')ON CONFLICT DO NOTHING;
 INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'sea view', 140, 1, 'used', 'tv', 'hotel101', '1')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate", "status", "room", "hotel") VALUES ('3', '2018-01-01', '2018-12-31', 'empty', 2, 'hotel1')ON CONFLICT DO NOTHING;
