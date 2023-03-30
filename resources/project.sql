@@ -13,14 +13,22 @@ CREATE TABLE IF NOT EXISTS "Hotels"."agreement"
     "room" integer,
     "hotel" character varying(20),
     "ssn" integer,
-    CONSTRAINT "agreement_pkey" PRIMARY KEY ("agreement_num")
+    CONSTRAINT "agreement_pkey" PRIMARY KEY ("agreement_num"),
+    CONSTRAINT agreement_rooms_fkey FOREIGN KEY ("room","hotel") 
+        REFERENCES "Hotels"."rooms" ("room_num", "hotel_name") MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    CONSTRAINT agreement_customer_fkey FOREIGN KEY ("ssn") 
+        REFERENCES "Hotels"."customer" ("ssnC") MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS "Hotels"."employee"
 (
     "ssnE" integer NOT NULL,
     "name" character varying(20),
-    "adress" character varying(20),
+    "addresses" jsonb,
     "username" character varying(20),
     "password" character varying(20),
     "hiredate" date,
@@ -31,7 +39,7 @@ CREATE TABLE IF NOT EXISTS "Hotels"."customer"
 (
     "ssnC" integer NOT NULL,
     "name" character varying(20),
-    "adress" character varying(20),
+    "addresses" jsonb,
     "username" character varying(20),
     "password" character varying(20),
     "registrationdate" date,
@@ -39,14 +47,11 @@ CREATE TABLE IF NOT EXISTS "Hotels"."customer"
     CONSTRAINT customer_pkey PRIMARY KEY ("ssnC")
 );
 
-
-
-
 CREATE TABLE IF NOT EXISTS "Hotels"."chain"
 (
     "name" character varying(20) NOT NULL,
     "number_hotels" integer,
-    "adress" character varying(20),
+    "addresses" jsonb,
     "email" character varying(20),
     "phone" character varying(20),
     CONSTRAINT chain_pkey PRIMARY KEY (name)
@@ -58,9 +63,10 @@ CREATE TABLE IF NOT EXISTS "Hotels"."hotels"
     "number_rooms" integer,
     "chain" character varying(20),
     "stars" integer,
-    "adress" character varying(20),
+    "addresses" jsonb,
     "email" character varying(20),
     "phone" character varying(20),
+    "location" character varying(30),
     CONSTRAINT hotels_pkey PRIMARY KEY (name),
     CONSTRAINT hotels_chain_fkey FOREIGN KEY ("chain")
         REFERENCES "Hotels"."chain" ("name") MATCH SIMPLE
@@ -97,6 +103,15 @@ ADD CONSTRAINT agreement_rooms_fkey FOREIGN KEY ("room","hotel")
         REFERENCES "Hotels"."rooms" ("room_num", "hotel_name") MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE;
+        
+ALTER TABLE "Hotels"."agreement"
+ADD CONSTRAINT agreement_rooms_fkey FOREIGN KEY ("room","hotel") 
+        REFERENCES "Hotels"."rooms" ("room_num", "hotel_name") MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE;
+        
+        
+      
 
 ALTER TABLE "Hotels"."agreement"
 DROP CONSTRAINT IF EXISTS agreement_ssn_fkey;
@@ -106,7 +121,27 @@ ADD CONSTRAINT agreement_ssn_fkey FOREIGN KEY ("ssn")
         REFERENCES "Hotels"."customer" ("ssnC") MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE;
+        
+        
+ 
+ALTER TABLE "Hotels"."agreement"
+DROP CONSTRAINT IF EXISTS agreement_room_fkey;
 
+ALTER TABLE "Hotels"."agreement"
+ADD CONSTRAINT agreement_room_fkey FOREIGN KEY ("room", "hotel")
+REFERENCES "Hotels"."rooms" ("room_num", "hotel_name") MATCH SIMPLE
+ON UPDATE CASCADE
+ON DELETE CASCADE;
+
+ALTER TABLE "Hotels"."agreement"
+DROP CONSTRAINT IF EXISTS agreement_customer_fkey;
+
+ALTER TABLE "Hotels"."agreement"
+ADD CONSTRAINT agreement_customer_fkey FOREIGN KEY ("ssn")
+REFERENCES "Hotels"."customer" ("ssnC") MATCH SIMPLE
+ON UPDATE CASCADE
+ON DELETE CASCADE;
+    
 
 INSERT INTO "Hotels"."chain" ("name", "number_hotels", "adress", "email", "phone") VALUES ('chain1', 5, 'adress1', 'email1', 'phone1')ON CONFLICT DO NOTHING;
 INSERT INTO "Hotels"."chain" ("name", "number_hotels", "adress", "email", "phone") VALUES ('chain2', 5, 'adress2', 'email2', 'phone2')ON CONFLICT DO NOTHING;
@@ -419,3 +454,25 @@ INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress
 INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'sea view', 140, 1, 'used', 'tv', 'hotel101', '1')ON CONFLICT DO NOTHING;
 
 INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate", "status", "room", "hotel") VALUES ('3', '2018-01-01', '2018-12-31', 'empty', 2, 'hotel1')ON CONFLICT DO NOTHING;
+
+'Get all agreements for a particular customer:'
+SELECT *
+FROM "Hotels"."agreement"
+WHERE "ssn" = <customer_ssn>;
+
+'Get all agreements for a particular room:'
+SELECT *
+FROM "Hotels"."agreement"
+WHERE "room" = <room_num>
+AND "hotel" = <hotel_name>;
+
+'Get all employees hired after a certain date:'
+SELECT *
+FROM "Hotels"."employee"
+WHERE "hiredate" > <date>;
+
+'Get all customers who registered before a certain date:'
+SELECT *
+FROM "Hotels"."customer"
+WHERE "registrationdate" < <date>;
+
