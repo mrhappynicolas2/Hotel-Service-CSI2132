@@ -26,14 +26,26 @@
     
     li a:hover {
       background-color: #111111;
+      transition: background-color 900ms ease;
     }
 
+    .admin_title{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .button_layout{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+    }
     .button{
     margin-top: 12px;
     cursor: pointer;
     text-decoration: none;
     margin-right: 15px;
-    margin-bottom: 10px;
     padding: 10px 15px;
     border-radius: 30px;
     background-color: #000;
@@ -51,19 +63,9 @@
     background-color: transparent;
     color: #000;
     }
-
-    .logout_page{
-      margin-top: 10px;
-      display: flexbox;
-      padding-left: 10px;
-    }
-    .logo_inquiries{
-      margin-top: 30px;
-      display: flexbox;
-    }
     </style>
   <head>
-    <title>Database Logout</title>
+    <title>Admin Panel</title>
   </head>
   <nav>
     <ul>
@@ -73,18 +75,11 @@
     </ul>
   </nav>
   <body>
-    <div class="logout_page">
-    <header>
-      <h1>You have succesfully logged out</h1>
-      <a href="index.html" class="button">Back to Mainpage</a>
-
-    </header>
-    <footer class="logo_inquiries">
-      <img src="logo.png" alt="logo of the company">
-      <p>&copy; 2023 Hotel Company</p>
-      <p>For inquiries, email at EHotels@gmail.ca</p>
-    </footer>
-  </div>
+    <h1 class="admin_title"> Admin Control Panel </h1>
+    <div class="button_layout">
+        <input type="submit" class="button" value="Modify Customer Data">
+        <input type="submit" class="button" value="Modify Employee Data">
+        <input type="submit" class="button" value="Modify Hotel Data">
+    </div>
   </body>
 </html>
-

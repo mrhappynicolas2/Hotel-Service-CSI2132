@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
   <style>
+    *{
+      font-family: 'Epilogue', sans-serif; 
+    }
     ul {
       list-style-type: none;
       margin: 0;
@@ -23,6 +26,19 @@
     
     li a:hover {
       background-color: #111111;
+      transition: background-color 900ms ease;
+    }
+
+    .admin_login_page{
+      padding-left: 10px;
+    }
+
+    label,input{
+      display: block;
+    }
+
+    label{
+      margin-bottom: 20px;
     }
     </style>
   <head>
@@ -36,15 +52,21 @@
     </ul>
   </nav>
   <body>
+    <div class="admin_login_page">
     <header>
       <h1>Administrator Sign in Page</h1>
     </header>
     <form action="AdminServlet" method="post">
-        Username:<input type="text" name="userid"><br>
-        Password:<input type="password" name="password"><br>
-        <input type="submit" value="Submit">
+      <label>
+        Username:<input type="text" name="userid">
+      </label>
+      <label>
+        Password:<input type="password" name="password">
+      </label>
+        <input type="submit" value="Submit" class="button">
     </form>
     <p>&copy; 2023 Hotel Company</p>
-    <p>For inquiries, email at ehotels@gmail.ca</p>
+    <p>For inquiries, email at EHotels@gmail.ca</p>
+  </div>
   </body>
 </html>
