@@ -7,17 +7,18 @@ In SearchServlet:
 In Application:
     Change the way the selectFromTable function works, right now you cant use the LIKE command <-- maybe not if we dont need it
 
-In ReservationServlet: 
-    -fix ReservationViewServlet
-
 Add a Admin servlet 
     Ability to edit employee and customer data 
     
 
 SQL:
-	Change "agreement" to have a foreign key connected to client and rooms, currently only rooms
 	Change Adress to be a multi-variable
     Add location (town) to hotel
     Add customer and employee data
+
+Signup servlet
+    Add a way to signup as a customer
+
+Make the github README look better
         
 
