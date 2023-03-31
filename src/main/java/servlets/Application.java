@@ -459,8 +459,16 @@ public class Application {
         }
 
     }
-    public void deleteFromTable(String tableName, String[] values){ //TODO:
-    //TODO: HERE
+    public void deleteFromTable(String tableName, String value){
+        String sql = "DELETE FROM " + tableName + " WHERE "+value;
+
+        try (Connection conn = this.connect();
+             Statement tableCreation = conn.createStatement()) {
+            tableCreation.executeUpdate(sql);
+            System.out.println("Row has been deleted");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     //main class
