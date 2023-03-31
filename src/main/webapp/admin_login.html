@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <style>
+<style>
     *{
       font-family: 'Epilogue', sans-serif; 
     }
@@ -41,32 +41,32 @@
       margin-bottom: 20px;
     }
     </style>
-  <head>
-    <title>Hotel Company</title>
-  </head>
-  <nav>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="Search.html">Available Rooms</a></li>
-      <li><a href="Reservation.html">Employee Section</a></li>
-    </ul>
-  </nav>
-  <body>
-    <div class="admin_login_page">
-    <header>
-      <h1>Administrator Sign in Page</h1>
-    </header>
-    <form action="AdminServlet" method="post">
-      <label>
-        Username:<input type="text" name="userid">
-      </label>
-      <label>
-        Password:<input type="password" name="password">
-      </label>
-        <input type="submit" value="Submit" class="button">
-    </form>
-    <p>&copy; 2023 Hotel Company</p>
-    <p>For inquiries, email at EHotels@gmail.ca</p>
-  </div>
-  </body>
+<head>
+  <title>Admin Login</title>
+</head>
+<nav>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="Search.html">Available Rooms</a></li>
+    <li><a href="Reservation.html">Employee Section</a></li>
+  </ul>
+</nav>
+<body>
+<div class="admin_login_page">
+  <header>
+    <h1>Administrator Sign in Page</h1>
+  </header>
+  <form action="AdminLogInServlet" method="post">
+    <label>
+      Username:<input type="text" name="userid">
+    </label>
+    <label>
+      Password:<input type="password" name="password">
+    </label>
+    <input type="submit" value="Submit" class="button">
+  </form>
+  <p>&copy; 2023 Hotel Company</p>
+  <p>For inquiries, email at EHotels@gmail.ca</p>
+</div>
+</body>
 </html>

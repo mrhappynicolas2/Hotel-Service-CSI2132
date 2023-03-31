@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<style>
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #333333;
+    }
+
+    li {
+      float: left;
+      align-items: center;
+    }
+
+    li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 16px;
+      text-decoration: none;
+    }
+
+    li a:hover {
+      background-color: #111111;
+      transition: background-color 900ms ease;
+    }
+
+    *{
+      font-family: 'Epilogue', sans-serif;
+    }
+
+    .index_introduction{
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+    .index_welcome{
+      justify-content: center;
+      text-align: center;
+    }
+
+    .index_intro_para{
+      font-size: 20px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .index_features{
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 20px;
+    }
+
+    .button{
+    margin-top: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-right: 15px;
+    padding: 19px 30px;
+    border-radius: 50px;
+    background-color: #000;
+    color: #fff;
+    line-height: inherit;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: 2px solid #000;
+    letter-spacing: -0.01em;
+    transition: background-color 500ms ease;
+    }
+
+    .button:hover{
+    border: 2px solid #000;
+    background-color: transparent;
+    color: #000;
+    }
+
+    .customer_signup_page{
+    padding-left: 10px;
+    display: center;
+    justify-content: center;
+    align-items: center;
+    }
+
+    .customer_signup{
+    display: block;
+    }
+
+    label,input{
+      display: block;
+    }
+
+    label{
+      margin-bottom: 20px;
+    }
+</style>
+<head>
+  <title>Customer Signup</title>
+</head>
+<nav>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="Search.html">Available Rooms</a></li>
+    <li><a href="Reservation.html">Employee Section</a></li>
+  </ul>
+</nav>
+
+<div class="customer_signup_page">
+  <h1>Customer Sign-up</h1>
+<div class="customer_signup">
+<form action="CustomerSignUpServlet" method="post">
+  <label>
+    Username:<input type="text" name="userid">
+  </label>
+  <label>
+    Password:<input type="password" name="password">
+  </label>
+  <input type="submit" value="Submit" class="button">
+</form>
+</div>
+<p>&copy; 2023 Hotel Company</p>
+<p>For inquiries, email at EHotels@gmail.ca</p>
+</div>
+</body>
+</html>

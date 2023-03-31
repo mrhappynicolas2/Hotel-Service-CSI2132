@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <style>
+<style>
     *{
       font-family: 'Epilogue', sans-serif; 
     }
@@ -63,23 +63,67 @@
     background-color: transparent;
     color: #000;
     }
+
+    .admin_panel_choices{
+      display: center;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .information_selection{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      font-size: 20px;
+      flex-direction: column;
+    }
+
+    input{
+      display: blocks;
+      align-items: center;
+    }
+
+    label{
+      display: block;
+      margin-bottom: 20px
+    }
+
+
     </style>
-  <head>
-    <title>Admin Panel</title>
-  </head>
-  <nav>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="Search.html">Available Rooms</a></li>
-      <li><a href="Reservation.html">Employee Section</a></li>
-    </ul>
-  </nav>
-  <body>
-    <h1 class="admin_title"> Admin Control Panel </h1>
-    <div class="button_layout">
-        <input type="submit" class="button" value="Modify Customer Data">
-        <input type="submit" class="button" value="Modify Employee Data">
-        <input type="submit" class="button" value="Modify Hotel Data">
-    </div>
-  </body>
+<head>
+  <title>Admin Panel</title>
+</head>
+<nav>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="Search.html">Available Rooms</a></li>
+    <li><a href="Reservation.html">Employee Section</a></li>
+  </ul>
+</nav>
+<body>
+<h1 class="admin_title"> Admin Control Panel </h1>
+
+<form class="admin_panel_choices" action="AdminPanelServlet" method="post">
+  <div class="information_selection">
+    <label>
+      Select Hotel Name:
+      <select id="Hotel" name="Hotels" form action="AdminPanelServlet">
+        <option value="hotel1">hotel1</option>
+        <option value="hotel2">hotel2</option>
+        <option value="hotel3">hotel3</option>
+        <option value="hotel4">hotel4</option>
+        <option value="hotel5">hotel5</option>
+      </select> </label>
+    <label>
+      Customer/Employee SSN (if applicable): <input type="text" name="personSSN">
+    </label>
+  </div>
+  <div class="button_layout">
+    <input type="submit" class="button" value="Modify Customer Data" name="customerButton">
+    <input type="submit" class="button" value="Modify Employee Data" name="employeeButton">
+    <input type="submit" class="button" value="Modify Hotel Data" name="hotelButton">
+  </div>
+</form>
+</body>
 </html>
