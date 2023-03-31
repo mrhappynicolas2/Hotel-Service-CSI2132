@@ -13,22 +13,14 @@ CREATE TABLE IF NOT EXISTS "Hotels"."agreement"
     "room" integer,
     "hotel" character varying(20),
     "ssn" integer,
-    CONSTRAINT "agreement_pkey" PRIMARY KEY ("agreement_num"),
-    CONSTRAINT agreement_rooms_fkey FOREIGN KEY ("room","hotel") 
-        REFERENCES "Hotels"."rooms" ("room_num", "hotel_name") MATCH SIMPLE
-        ON UPDATE CASCADE
-        ON DELETE CASCADE,
-    CONSTRAINT agreement_customer_fkey FOREIGN KEY ("ssn") 
-        REFERENCES "Hotels"."customer" ("ssnC") MATCH SIMPLE
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
+    CONSTRAINT "agreement_pkey" PRIMARY KEY ("agreement_num")
 );
 
 CREATE TABLE IF NOT EXISTS "Hotels"."employee"
 (
     "ssnE" integer NOT NULL,
     "name" character varying(20),
-    "addresses" jsonb,
+    "adress" character varying(20),
     "username" character varying(20),
     "password" character varying(20),
     "hiredate" date,
@@ -39,7 +31,7 @@ CREATE TABLE IF NOT EXISTS "Hotels"."customer"
 (
     "ssnC" integer NOT NULL,
     "name" character varying(20),
-    "addresses" jsonb,
+    "adress" character varying(20),
     "username" character varying(20),
     "password" character varying(20),
     "registrationdate" date,
@@ -51,7 +43,7 @@ CREATE TABLE IF NOT EXISTS "Hotels"."chain"
 (
     "name" character varying(20) NOT NULL,
     "number_hotels" integer,
-    "addresses" jsonb,
+    "adress" character varying(20),
     "email" character varying(20),
     "phone" character varying(20),
     CONSTRAINT chain_pkey PRIMARY KEY (name)
@@ -63,7 +55,7 @@ CREATE TABLE IF NOT EXISTS "Hotels"."hotels"
     "number_rooms" integer,
     "chain" character varying(20),
     "stars" integer,
-    "addresses" jsonb,
+    "adress" character varying(20),
     "email" character varying(20),
     "phone" character varying(20),
     "location" character varying(30),
@@ -104,14 +96,6 @@ ADD CONSTRAINT agreement_rooms_fkey FOREIGN KEY ("room","hotel")
         ON UPDATE CASCADE
         ON DELETE CASCADE;
         
-ALTER TABLE "Hotels"."agreement"
-ADD CONSTRAINT agreement_rooms_fkey FOREIGN KEY ("room","hotel") 
-        REFERENCES "Hotels"."rooms" ("room_num", "hotel_name") MATCH SIMPLE
-        ON UPDATE CASCADE
-        ON DELETE CASCADE;
-        
-        
-      
 
 ALTER TABLE "Hotels"."agreement"
 DROP CONSTRAINT IF EXISTS agreement_ssn_fkey;
@@ -149,50 +133,50 @@ INSERT INTO "Hotels"."chain" ("name", "number_hotels", "adress", "email", "phone
 INSERT INTO "Hotels"."chain" ("name", "number_hotels", "adress", "email", "phone") VALUES ('chain4', 5, 'adress4', 'email4', 'phone4')ON CONFLICT DO NOTHING;
 INSERT INTO "Hotels"."chain" ("name", "number_hotels", "adress", "email", "phone") VALUES ('chain5', 5, 'adress5', 'email5', 'phone5')ON CONFLICT DO NOTHING;
 
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel1', 5, 'chain1', 1, 'adress1', 'email1', 'phone1') ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel2', 5, 'chain1', 2, 'adress1', 'email2', 'phone2')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel3', 5, 'chain1', 3, 'adress3', 'email3', 'phone3')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel4', 5, 'chain1', 4, 'adress4', 'email4', 'phone4')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel5', 5, 'chain1', 5, 'adress5', 'email5', 'phone5')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel6', 5, 'chain1', 1, 'adress6', 'email6', 'phone6')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel7', 5, 'chain1', 2, 'adress7', 'email7', 'phone7')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel8', 5, 'chain1', 3, 'adress8', 'email8', 'phone8')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel1', 5, 'chain1', 1, 'adress1', 'email1', 'phone1', 'Madrid') ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel2', 5, 'chain1', 2, 'adress1', 'email2', 'phone2', 'Paris')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel3', 5, 'chain1', 3, 'adress3', 'email3', 'phone3', 'Opel')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel4', 5, 'chain1', 4, 'adress4', 'email4', 'phone4', 'Madrid')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel5', 5, 'chain1', 5, 'adress5', 'email5', 'phone5', 'Paris')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel6', 5, 'chain1', 1, 'adress6', 'email6', 'phone6', 'Madrid')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel7', 5, 'chain1', 2, 'adress7', 'email7', 'phone7', 'Ottawa')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel8', 5, 'chain1', 3, 'adress8', 'email8', 'phone8', 'Ottawa')ON CONFLICT DO NOTHING;
 
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel11', 5, 'chain2', 1, 'adress11', 'email11', 'phone11')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel12', 5, 'chain2', 2, 'adress12', 'email12', 'phone12')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel13', 5, 'chain2', 3, 'adress13', 'email13', 'phone13')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel14', 5, 'chain2', 4, 'adress14', 'email14', 'phone14')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel15', 5, 'chain2', 5, 'adress15', 'email15', 'phone15')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel16', 5, 'chain2', 1, 'adress16', 'email16', 'phone16')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel17', 5, 'chain2', 2, 'adress17', 'email17', 'phone17')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel18', 5, 'chain2', 3, 'adress18', 'email18', 'phone18')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel11', 5, 'chain2', 1, 'adress11', 'email11', 'phone11', 'Paris')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel12', 5, 'chain2', 2, 'adress12', 'email12', 'phone12', 'Opel')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel13', 5, 'chain2', 3, 'adress13', 'email13', 'phone13', 'Madrid')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel14', 5, 'chain2', 4, 'adress14', 'email14', 'phone14', 'Paris')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel15', 5, 'chain2', 5, 'adress15', 'email15', 'phone15', 'Ottawa')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel16', 5, 'chain2', 1, 'adress16', 'email16', 'phone16', 'Madrid')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel17', 5, 'chain2', 2, 'adress17', 'email17', 'phone17', 'Ottawa')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel18', 5, 'chain2', 3, 'adress18', 'email18', 'phone18', 'Paris')ON CONFLICT DO NOTHING;
 
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel21', 5, 'chain3', 1, 'adress21', 'email21', 'phone21')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel22', 5, 'chain3', 2, 'adress22', 'email22', 'phone22')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel23', 5, 'chain3', 3, 'adress23', 'email23', 'phone23')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel24', 5, 'chain3', 4, 'adress24', 'email24', 'phone24')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel25', 5, 'chain3', 5, 'adress25', 'email25', 'phone25')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel26', 5, 'chain3', 1, 'adress26', 'email26', 'phone26')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel27', 5, 'chain3', 2, 'adress27', 'email27', 'phone27')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel28', 5, 'chain3', 3, 'adress28', 'email28', 'phone28')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel21', 5, 'chain3', 1, 'adress21', 'email21', 'phone21', 'Madrid')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel22', 5, 'chain3', 2, 'adress22', 'email22', 'phone22', 'Opel')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel23', 5, 'chain3', 3, 'adress23', 'email23', 'phone23', 'Madrid')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel24', 5, 'chain3', 4, 'adress24', 'email24', 'phone24', 'Paris')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel25', 5, 'chain3', 5, 'adress25', 'email25', 'phone25', 'Madrid')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel26', 5, 'chain3', 1, 'adress26', 'email26', 'phone26', 'Ottawa')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel27', 5, 'chain3', 2, 'adress27', 'email27', 'phone27', 'Madrid')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel28', 5, 'chain3', 3, 'adress28', 'email28', 'phone28', 'Paris')ON CONFLICT DO NOTHING;
 
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel31', 5, 'chain4', 1, 'adress31', 'email31', 'phone31')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel32', 5, 'chain4', 2, 'adress32', 'email32', 'phone32')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel33', 5, 'chain4', 3, 'adress33', 'email33', 'phone33')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel34', 5, 'chain4', 4, 'adress34', 'email34', 'phone34')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel35', 5, 'chain4', 5, 'adress35', 'email35', 'phone35')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel36', 5, 'chain4', 1, 'adress36', 'email36', 'phone36')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel37', 5, 'chain4', 2, 'adress37', 'email37', 'phone37')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel38', 5, 'chain4', 3, 'adress38', 'email38', 'phone38')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel31', 5, 'chain4', 1, 'adress31', 'email31', 'phone31', 'Paris')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel32', 5, 'chain4', 2, 'adress32', 'email32', 'phone32', 'Madrid')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel33', 5, 'chain4', 3, 'adress33', 'email33', 'phone33', 'Opel')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel34', 5, 'chain4', 4, 'adress34', 'email34', 'phone34', 'Madrid')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel35', 5, 'chain4', 5, 'adress35', 'email35', 'phone35', 'Paris')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel36', 5, 'chain4', 1, 'adress36', 'email36', 'phone36', 'Madrid')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel37', 5, 'chain4', 2, 'adress37', 'email37', 'phone37', 'Ottawa')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel38', 5, 'chain4', 3, 'adress38', 'email38', 'phone38', 'Madrid')ON CONFLICT DO NOTHING;
 
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel41', 5, 'chain5', 1, 'adress41', 'email41', 'phone41')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel42', 5, 'chain5', 2, 'adress42', 'email42', 'phone42')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel43', 5, 'chain5', 3, 'adress43', 'email43', 'phone43')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel44', 5, 'chain5', 4, 'adress44', 'email44', 'phone44')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel45', 5, 'chain5', 5, 'adress45', 'email45', 'phone45')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel46', 5, 'chain5', 1, 'adress46', 'email46', 'phone46')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel47', 5, 'chain5', 2, 'adress47', 'email47', 'phone47')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel48', 5, 'chain5', 3, 'adress48', 'email48', 'phone48')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel41', 5, 'chain5', 1, 'adress41', 'email41', 'phone41', 'Paris')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel42', 5, 'chain5', 2, 'adress42', 'email42', 'phone42', 'Madrid')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel43', 5, 'chain5', 3, 'adress43', 'email43', 'phone43', 'Paris')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel44', 5, 'chain5', 4, 'adress44', 'email44', 'phone44', 'Madrid')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel45', 5, 'chain5', 5, 'adress45', 'email45', 'phone45', 'Opel')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel46', 5, 'chain5', 1, 'adress46', 'email46', 'phone46', 'Ottawa')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel47', 5, 'chain5', 2, 'adress47', 'email47', 'phone47', 'Paris')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel48', 5, 'chain5', 3, 'adress48', 'email48', 'phone48', 'Madrid')ON CONFLICT DO NOTHING;
 
 INSERT INTO "Hotels"."customer" ("ssnC", "name", "adress", "username", "password", "registrationdate", "phone") VALUES (145, 'customer1', 'adress1', 'username1', 'password1', '2018-01-01', 123456789)ON CONFLICT DO NOTHING;
 INSERT INTO "Hotels"."customer" ("ssnC", "name", "adress", "username", "password", "registrationdate", "phone") VALUES (146, 'customer1', 'adress1', 'username1', 'password1', '2018-01-01', 133456789)ON CONFLICT DO NOTHING;
@@ -450,29 +434,8 @@ INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capac
 INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (5, 'mountain view', 140, 5, 'free', 'tv', 'hotel48', '0')ON CONFLICT DO NOTHING;
 
 INSERT INTO "Hotels"."chain" ("name", "number_hotels", "adress", "email", "phone") VALUES ('chain6', 5, 'adress5', 'email5', 'phone5')ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone") VALUES ('hotel101', 5, 'chain6', 1, 'adress41', 'email41', 'phone41')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel101', 5, 'chain6', 1, 'adress41', 'email41', 'phone41', 'Paris')ON CONFLICT DO NOTHING;
 INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num") VALUES (1, 'sea view', 140, 1, 'used', 'tv', 'hotel101', '1')ON CONFLICT DO NOTHING;
 
 INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate", "status", "room", "hotel") VALUES ('3', '2018-01-01', '2018-12-31', 'empty', 2, 'hotel1')ON CONFLICT DO NOTHING;
-
-'Get all agreements for a particular customer:'
-SELECT *
-FROM "Hotels"."agreement"
-WHERE "ssn" = <customer_ssn>;
-
-'Get all agreements for a particular room:'
-SELECT *
-FROM "Hotels"."agreement"
-WHERE "room" = <room_num>
-AND "hotel" = <hotel_name>;
-
-'Get all employees hired after a certain date:'
-SELECT *
-FROM "Hotels"."employee"
-WHERE "hiredate" > <date>;
-
-'Get all customers who registered before a certain date:'
-SELECT *
-FROM "Hotels"."customer"
-WHERE "registrationdate" < <date>;
 
