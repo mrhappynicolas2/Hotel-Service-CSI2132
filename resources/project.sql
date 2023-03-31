@@ -18,25 +18,25 @@ CREATE TABLE IF NOT EXISTS "Hotels"."agreement"
 
 CREATE TABLE IF NOT EXISTS "Hotels"."employee"
 (
-    "ssnE" integer NOT NULL,
+    "ssne" integer NOT NULL,
     "name" character varying(20),
     "adress" character varying(20),
     "username" character varying(20),
     "password" character varying(20),
     "hiredate" date,
-    CONSTRAINT employee_pkey PRIMARY KEY ("ssnE")
+    CONSTRAINT employee_pkey PRIMARY KEY ("ssne")
 );
 
 CREATE TABLE IF NOT EXISTS "Hotels"."customer"
 (
-    "ssnC" integer NOT NULL,
+    "ssnc" integer NOT NULL,
     "name" character varying(20),
     "adress" character varying(20),
     "username" character varying(20),
     "password" character varying(20),
     "registrationdate" date,
     "phone" integer,
-    CONSTRAINT customer_pkey PRIMARY KEY ("ssnC")
+    CONSTRAINT customer_pkey PRIMARY KEY ("ssnc")
 );
 
 CREATE TABLE IF NOT EXISTS "Hotels"."chain"
@@ -102,7 +102,7 @@ DROP CONSTRAINT IF EXISTS agreement_ssn_fkey;
 
 ALTER TABLE "Hotels"."agreement"
 ADD CONSTRAINT agreement_ssn_fkey FOREIGN KEY ("ssn") 
-        REFERENCES "Hotels"."customer" ("ssnC") MATCH SIMPLE
+        REFERENCES "Hotels"."customer" ("ssnc") MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE;
         
@@ -122,7 +122,7 @@ DROP CONSTRAINT IF EXISTS agreement_customer_fkey;
 
 ALTER TABLE "Hotels"."agreement"
 ADD CONSTRAINT agreement_customer_fkey FOREIGN KEY ("ssn")
-REFERENCES "Hotels"."customer" ("ssnC") MATCH SIMPLE
+REFERENCES "Hotels"."customer" ("ssnc") MATCH SIMPLE
 ON UPDATE CASCADE
 ON DELETE CASCADE;
     
@@ -178,8 +178,8 @@ INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress
 INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel47', 5, 'chain5', 2, 'adress47', 'email47', 'phone47', 'Paris')ON CONFLICT DO NOTHING;
 INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress", "email", "phone", "location") VALUES ('hotel48', 5, 'chain5', 3, 'adress48', 'email48', 'phone48', 'Madrid')ON CONFLICT DO NOTHING;
 
-INSERT INTO "Hotels"."customer" ("ssnC", "name", "adress", "username", "password", "registrationdate", "phone") VALUES (145, 'customer1', 'adress1', 'username1', 'password1', '2018-01-01', 123456789)ON CONFLICT DO NOTHING;
-INSERT INTO "Hotels"."customer" ("ssnC", "name", "adress", "username", "password", "registrationdate", "phone") VALUES (146, 'customer1', 'adress1', 'username1', 'password1', '2018-01-01', 133456789)ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."customer" ("ssnc", "name", "adress", "username", "password", "registrationdate", "phone") VALUES (145, 'customer1', 'adress1', 'username1', 'password1', '2018-01-01', 123456789)ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."customer" ("ssnc", "name", "adress", "username", "password", "registrationdate", "phone") VALUES (146, 'customer1', 'adress1', 'username1', 'password1', '2018-01-01', 133456789)ON CONFLICT DO NOTHING;
 
 INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate", "status", "room", "hotel", "ssn") VALUES ('0', '1999-01-01', '2018-12-31', 'empty', NULL, NULL, 145)ON CONFLICT DO NOTHING;
 INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate", "status", "room", "hotel", "ssn") VALUES ('1', '2018-01-01', '2018-12-31', 'empty', NULL, NULL, 146)ON CONFLICT DO NOTHING;

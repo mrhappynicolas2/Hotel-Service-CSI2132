@@ -49,12 +49,12 @@ public class AdminPanelServlet extends HttpServlet{
 
     public void customerMenu(Application app, PrintWriter out, String customerSSN){
         // List customer information with options to insert, delete or update
-        String[] select = {"ssnC","name","adress","username","password", "registrationdate","phone"};
+        String[] select = {"ssnc","name","adress","username","password", "registrationdate","phone"};
         String tablename = "customer";
-        String[] where = {"ssnC = "+customerSSN};
+        String[] where = {"ssnc = "+customerSSN};
         List<String> queriedCustomers = app.selectFromTable(tablename,select,"Hotels",where);
         List<String> correctCustomer = new ArrayList<>();
-        String query = "\"Hotels\".customer.ssnC: " + customerSSN;
+        String query = "\"Hotels\".customer.ssnc: " + customerSSN;
 
         for(String s: queriedCustomers){
             if(s.startsWith(query)){
@@ -127,12 +127,12 @@ public class AdminPanelServlet extends HttpServlet{
 
     public void employeeMenu(Application app, PrintWriter out, String hotelName, String employeeSSN){
         // List employee information with options to insert, delete or update
-        String[] select = {"ssnE","name","adress","username","password","hiredate"};
+        String[] select = {"ssne","name","adress","username","password","hiredate"};
         String tablename = "employee";
-        String[] where = {"ssnE = *"};
+        String[] where = {"ssne = *"};
         List<String> queriedEmployees = app.selectFromTable(tablename,select,"Hotels",where);
         List<String> correctEmployees = new ArrayList<>();
-        String query = "\"Hotels\".employee.ssnE: " + employeeSSN;
+        String query = "\"Hotels\".employee.ssne: " + employeeSSN;
 
         for(String s: queriedEmployees){
             if(s.startsWith(query)){
