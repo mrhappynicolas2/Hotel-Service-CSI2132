@@ -181,6 +181,12 @@ INSERT INTO "Hotels"."hotels" ("name", "number_rooms", "chain", "stars", "adress
 INSERT INTO "Hotels"."customer" ("ssnc", "name", "adress", "username", "password", "registrationdate", "phone") VALUES (145, 'customer1', 'adress1', 'username1', 'password1', '2018-01-01', 123456789)ON CONFLICT DO NOTHING;
 INSERT INTO "Hotels"."customer" ("ssnc", "name", "adress", "username", "password", "registrationdate", "phone") VALUES (146, 'customer1', 'adress1', 'username1', 'password1', '2018-01-01', 133456789)ON CONFLICT DO NOTHING;
 
+
+INSERT INTO "Hotels"."employee" ("ssne", "name", "adress", "username", "password", "hiredate") VALUES (201, 'employee1', 'adress1', 'employee1', 'password', '2018-01-01')ON CONFLICT DO NOTHING;
+INSERT INTO "Hotels"."employee" ("ssne", "name", "adress", "username", "password", "hiredate") VALUES (202, 'employee2', 'adress2', 'employee2', 'password', '2018-01-01')ON CONFLICT DO NOTHING;
+
+
+
 INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate", "status", "room", "hotel", "ssn") VALUES ('0', '1999-01-01', '2018-12-31', 'empty', NULL, NULL, 145)ON CONFLICT DO NOTHING;
 INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate", "status", "room", "hotel", "ssn") VALUES ('1', '2018-01-01', '2018-12-31', 'empty', NULL, NULL, 146)ON CONFLICT DO NOTHING;
 

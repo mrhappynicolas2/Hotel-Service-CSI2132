@@ -54,7 +54,7 @@ public class AdminPanelServlet extends HttpServlet{
         String[] where = {"ssnc = "+customerSSN};
         List<String> queriedCustomers = app.selectFromTable(tablename,select,"Hotels",where);
         List<String> correctCustomer = new ArrayList<>();
-        String query = "\"Hotels\".customer.ssnc: " + customerSSN;
+        String query = "ssnc: " + customerSSN;
 
         for(String s: queriedCustomers){
             if(s.startsWith(query)){
@@ -92,7 +92,6 @@ public class AdminPanelServlet extends HttpServlet{
                 +"				<th>Customer Address</th>"
                 +"				<th>Username</th>"
                 +"				<th>Password</th>"
-                +"				<th></th>"
                 +"			</tr>"
                 +"		</thead>"
                 +"		<tbody>";
@@ -101,7 +100,7 @@ public class AdminPanelServlet extends HttpServlet{
         for(int i = 0; i< correctCustomer.size(); i++){
             String[] customerInfo = correctCustomer.get(i).split(",");
             String[] fixedCustomerInfo = new String[7];
-            for(int j = 0; j<customerInfo.length; j++){
+            for(int j = 0; j<customerInfo.length-2; j++){
                 String[] tempInfo = customerInfo[j].split(":");
                 fixedCustomerInfo[j] = tempInfo[1];
             }
@@ -129,10 +128,10 @@ public class AdminPanelServlet extends HttpServlet{
         // List employee information with options to insert, delete or update
         String[] select = {"ssne","name","adress","username","password","hiredate"};
         String tablename = "employee";
-        String[] where = {"ssne = *"};
+        String[] where = {"ssne = "+employeeSSN};
         List<String> queriedEmployees = app.selectFromTable(tablename,select,"Hotels",where);
         List<String> correctEmployees = new ArrayList<>();
-        String query = "\"Hotels\".employee.ssne: " + employeeSSN;
+        String query = "ssne: " + employeeSSN;
 
         for(String s: queriedEmployees){
             if(s.startsWith(query)){
@@ -173,7 +172,6 @@ public class AdminPanelServlet extends HttpServlet{
                 +"				<th>Username</th>"
                 +"				<th>Password</th>"
                 +"				<th>Employee Hiredate</th>"
-                +"				<th></th>"
                 +"			</tr>"
                 +"		</thead>"
                 +"		<tbody>";
@@ -183,7 +181,7 @@ public class AdminPanelServlet extends HttpServlet{
         for(int i = 0; i< correctEmployees.size(); i++){
             String[] employeeInfo = correctEmployees.get(i).split(",");
             String[] fixedEmployeeInfo = new String[6];
-            for(int j = 0; j<employeeInfo.length; j++){
+            for(int j = 0; j<employeeInfo.length-1; j++){
                 String[] tempInfo = employeeInfo[j].split(":");
                 fixedEmployeeInfo[j] = tempInfo[1];
             }
@@ -270,7 +268,6 @@ public class AdminPanelServlet extends HttpServlet{
                 + "				<th>Hotel Address</th>"
                 + "				<th>Email</th>"
                 + "				<th>Phone Number</th>"
-                + "				<th></th>"
                 + "			</tr>"
                 + "		</thead>"
                 + "		<tbody>";
