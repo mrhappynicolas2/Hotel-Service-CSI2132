@@ -445,3 +445,6 @@ INSERT INTO "Hotels"."rooms" ("room_num", "room_type", "room_price", "room_capac
 
 INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate", "status", "room", "hotel") VALUES ('3', '2018-01-01', '2018-12-31', 'empty', 2, 'hotel1')ON CONFLICT DO NOTHING;
 
+INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate", "status", "room", "hotel") VALUES ('2', '2018-01-01', '2018-12-31', 'empty', 3, 'hotel1')ON CONFLICT DO NOTHING;
+
+INSERT INTO "Hotels"."agreement" ("agreement_num", "startdate", "enddate", "status", "room", "hotel") VALUES ('4', '2018-01-01', '2018-12-31', 'empty', 4, 'hotel1')ON CONFLICT DO NOTHING;

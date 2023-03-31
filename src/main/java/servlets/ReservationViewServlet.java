@@ -48,9 +48,9 @@ public class ReservationViewServlet extends HttpServlet {
 			List<String> Foundboocking = new ArrayList<String>();
 			String query = "\"Hotels\".agreement.agreement_num: " + agreementNum;
 			for (String s: allBoockings ) {
-				if (s.startsWith(query))
+				if (s.startsWith(query)){
 				 System.out.println(s);
-				 Foundboocking.add(s);
+				 Foundboocking.add(s);}
 			}
 			String begin = 
 			"<br>"
@@ -86,14 +86,20 @@ public class ReservationViewServlet extends HttpServlet {
 		String middle = "";
 			for (int i = 0; i < Foundboocking.size(); i++) {
 				String[] Categori = Foundboocking.get(i).split(",");
+				String[] fixedReservationInfo = new String[6];
+				for (int j = 0; j < Categori.length-1; j++) {
+					String[] tempInfo = Categori[j].split(":");
+					fixedReservationInfo[j] = tempInfo[1];
+            }
+				
 				middle += ""
 				+"<tr>"
-					+"<td>" + Categori[0] + "</td>"
-					+"<td>" + Categori[1] + "</td>"
-					+"<td>" + Categori[2] + "</td>"
-					+"<td>" + Categori[3] + "</td>"
-					+"<td>" + Categori[4] + "</td>"
-					+"<td>" + Categori[5] + "</td>"  
+					+"<td>" + fixedReservationInfo[0] + "</td>"
+					+"<td>" + fixedReservationInfo[1] + "</td>"
+					+"<td>" + fixedReservationInfo[2] + "</td>"
+					+"<td>" + fixedReservationInfo[3] + "</td>"
+					+"<td>" + fixedReservationInfo[4] + "</td>"
+					+"<td>" + fixedReservationInfo[5] + "</td>"  
 				+"</tr>"
 		+"		</tbody>"
 		+"	</table>"

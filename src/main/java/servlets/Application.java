@@ -318,7 +318,7 @@ public class Application {
                 sql = sql+where[i]+" AND ";
                 
             }
-            sql = sql+where[0]+";";
+            sql = sql+where[i]+";";
         }
 
         
@@ -548,7 +548,13 @@ public class Application {
 				if (s.startsWith(query))
 				 System.out.println(s);
             }
+            String[][] testQuery6 = {{"agreement_num = 3"},{"hotel_name = 'hotel1'", "room_num = '2'"}};
+            app.updateRow("rooms", "Hotels", testQuery6[0], testQuery6[1]);
+
+            String[][] testQuery7 = {{"agreement_num = 4"},{"hotel_name = 'hotel1'", "room_num = '4'"}};
+            app.updateRow("rooms", "Hotels", testQuery7[0], testQuery7[1]);
             System.out.println("end");
+            
             
 
             
