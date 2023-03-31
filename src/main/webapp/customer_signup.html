@@ -114,19 +114,29 @@
 
 <div class="customer_signup_page">
   <h1>Customer Sign-up</h1>
-<div class="customer_signup">
-<form action="CustomerSignUpServlet" method="post">
-  <label>
-    Username:<input type="text" name="userid">
-  </label>
-  <label>
-    Password:<input type="password" name="password">
-  </label>
-  <input type="submit" value="Submit" class="button">
-</form>
+  <div class="customer_signup">
+    <form action="EmployeeServlet" method="post">
+      <label>
+        Username: <input type="text" name="customerUser">
+      </label>
+      <label>
+        Password: <input type="text" name="customerPass">
+      </label>
+      <label>
+        Name: <input type="text" name="customerName">
+      </label>
+      <label>
+        Home Address: <input type="text" name="customerAddress">
+      </label>
+      <label>
+        Phone Number: <input type="text" name="customerPhone">
+      </label>
+      <label>
+        SSN: <input type="text" name="customerSSN">
+      </label>
+    </form>
+  </div>
+  <p>&copy; 2023 Hotel Company</p>
+  <p>For inquiries, email at EHotels@gmail.ca</p>
 </div>
-<p>&copy; 2023 Hotel Company</p>
-<p>For inquiries, email at EHotels@gmail.ca</p>
-</div>
-</body>
 </html>
