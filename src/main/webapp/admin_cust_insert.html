@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #333333;
+    }
+
+    li {
+      float: left;
+      align-items: center;
+    }
+
+    li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 16px;
+      text-decoration: none;
+    }
+
+    li a:hover {
+      background-color: #111111;
+      transition: background-color 900ms ease;
+    }
+
+    *{
+      font-family: 'Epilogue', sans-serif;
+    }
+
+    .button{
+    margin-top: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-right: 15px;
+    padding: 19px 30px;
+    border-radius: 50px;
+    background-color: #000;
+    color: #fff;
+    line-height: inherit;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: 2px solid #000;
+    letter-spacing: -0.01em;
+    transition: background-color 500ms ease;
+    }
+
+    .button:hover{
+    border: 2px solid #000;
+    background-color: transparent;
+    color: #000;
+    }
+
+    .adminInsertCustomer{
+    display: flex;
+    flex-direction: column;
+
+    }
+
+    .welcomeMessages{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    }
+
+    label,input{
+      display: block;
+    }
+
+    label{
+      margin-bottom: 20px;
+    }
+
+    .insertInformation{
+    display: grid;
+    justify-content: center;
+    }
+    </style>
+<head>
+    <title>Insert Customer</title>
+</head>
+<nav>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="Search.html">Available Rooms</a></li>
+        <li><a href="Reservation.html">Employee Section</a></li>
+    </ul>
+
+    <div class="adminInsertCustomer">
+        <div class="welcomeMessages">
+        <h1 class>Please enter the information you would like to insert</h1>
+        <h1 class>Do not leave any blanks!</h1>
+        </div>
+        <div class="insertInformation">
+        <form action="EmployeeServlet" method="post">
+            <label>
+                Customer SSN: <input type="text" name="customerSSN">
+            </label>
+            <label>
+                Customer Name: <input type="text" name="customerName">
+            </label>
+            <label>
+                Customer Address: <input type="text" name="customerAddress">
+            </label>
+            <label>
+                Username: <input type="text" name="customerUser">
+            </label>
+            <label>
+                Password: <input type="text" name="customerPass">
+            </label>
+            <label>
+                Registration Date: <input type="date" name="customerRegistered">
+            </label>
+            <label>
+                Phone Number: <input type="text" name="customerPhone">
+            </label>
+            <input type="submit" value="Add to Database" class="button">
+        </form>
+        </div>
+    </div>
+</nav>
+</html>
