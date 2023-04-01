@@ -86,7 +86,7 @@ public class ReservationViewServlet extends HttpServlet {
 		String middle = "";
 			for (int i = 0; i < Foundboocking.size(); i++) {
 				String[] Categori = Foundboocking.get(i).split(",");
-				String[] fixedReservationInfo = new String[6];
+				String[] fixedReservationInfo = new String[7];
 				for (int j = 0; j < Categori.length-1; j++) {
 					String[] tempInfo = Categori[j].split(":");
 					fixedReservationInfo[j] = tempInfo[1];

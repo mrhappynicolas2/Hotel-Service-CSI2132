@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -28,13 +29,36 @@ public class ReservationServlet extends HttpServlet {
 		    String username = user.split("_")[0];
 			String password = user.split("_")[1];
 		
-			String[] Column = {"agreement_num","startdate","enddate"};
+			String[] Column = {"agreement_num","startdate","enddate", "status"};
 			String[] where = {"agreement_num = '"+agreementNum+"'"};
 
 			String url = "jdbc:postgresql://127.0.0.1:5432/postgres?currentSchema=public"; 
 			Application app = new Application(url, username, password);
 			List<String> result = app.selectFromTable("agreement", Column, "Hotels", where);
 			
+			//room status
+			String[] tablenameForeign = {"agreement", "rooms"};
+			String[] selectForeign = {"\"Hotels\".rooms.room_status","\"Hotels\".agreement.agreement_num", "\"Hotels\".rooms.hotel_name", "\"Hotels\".rooms.room_num", "\"Hotels\".rooms.room_type", "\"Hotels\".rooms.room_price", "\"Hotels\".rooms.room_capacity", "\"Hotels\".agreement.ssn"};
+			String valueForeign[] = {"agreement_num = '"+agreementNum+"'"};
+            String whereForeign[] = {"\"Hotels\".rooms.room_num = \"Hotels\".agreement.room", "\"Hotels\".rooms.hotel_name = \"Hotels\".agreement.hotel"};
+            
+			List<String> allBoockings = app.foreignSelect(tablenameForeign, selectForeign,"Hotels", whereForeign);
+			List<String> Foundboocking = new ArrayList<String>();
+			String query = "\"Hotels\".agreement.agreement_num: " + agreementNum;
+			for (String s: allBoockings ) {
+				if (s.contains("\"Hotels\".agreement.agreement_num: " + agreementNum)){
+					
+				 System.out.println(s);
+				 Foundboocking.add(s);}
+			}
+
+			String[] Categorie = Foundboocking.get(0).split(",");
+				String[] fixedReservationInfo = new String[10];
+				for (int j = 0; j < Categorie.length-1; j++) {
+					String[] tempInfo = Categorie[j].split(":");
+					fixedReservationInfo[j] = tempInfo[1];
+            }
+			//end
 			session.setAttribute("num", agreementNum);
 			
 			String test = (String)request.getAttribute("num");
@@ -62,6 +86,7 @@ public class ReservationServlet extends HttpServlet {
 		+"				<th>Agreement Number</th>"
 		+"				<th>Start Date</th>"
 		+"				<th>End Date</th>"
+		+"				<th>Room Status</th>"
 		+"				<th>Accept Reservation</th>"
         +"				<th>Deny Reservation</th>"
 		+"				<th>View Reservation</th>"
@@ -78,6 +103,7 @@ public class ReservationServlet extends HttpServlet {
 					+"<td>" + Categori[0] + "</td>"
 					+"<td>" + Categori[1] + "</td>"
 					+"<td>" + Categori[2] + "</td>"
+					+"<td>" + fixedReservationInfo[0] + "</td>"
                     +"<td>" //TODO: Add all these servlet (maybe change the way they work, ex: instead of a button to view, it will automaticly give more info)
                         +"<form action=\"ReservationAcceptServlet\" method=\"post\">"
                         +   "<input type=\"submit\" value=\"Accept Reservation\">"

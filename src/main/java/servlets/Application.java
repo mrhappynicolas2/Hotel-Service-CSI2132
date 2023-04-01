@@ -512,7 +512,7 @@ public class Application {
         if (false) { //change this value to true if you want to refresh the database
             System.out.println("Database has been refreshed");
             app.databaseRefresh(app);}
-        else{
+        
             try{
                 ScriptRunner sr = new ScriptRunner(app.connect());
                 Reader reader = new BufferedReader(new FileReader("resources/project.sql"));
@@ -531,9 +531,9 @@ public class Application {
             
             app.selectFromTable("Rooms", testQueryNull[0], "Hotels", testQueryNull[1] );
 
-            String[][] testQuery2 = {{"room_status = 'reserved'", "room_annimities = 'test3'"},{"agreement_num = '1'", "room_type = 'five'"}};
+            String[][] testQuery2 = {{"room_status = 'reserved'", "room_annimities = 'test3'"},{"agreement_num = '1'"}};
             app.updateRow("rooms", "Hotels", testQuery2[0], testQuery2[1]);
-            
+            System.out.println("test");
             String[][] testQuery3 = {{"room = 1", "hotel = 'hotel101'"},{"agreement_num = '1'"}};
             app.updateRow("agreement", "Hotels", testQuery3[0], testQuery3[1]);
 
@@ -551,7 +551,7 @@ public class Application {
             String[][] testQuery6 = {{"agreement_num = 3"},{"hotel_name = 'hotel1'", "room_num = '2'"}};
             app.updateRow("rooms", "Hotels", testQuery6[0], testQuery6[1]);
 
-            String[][] testQuery7 = {{"agreement_num = 4"},{"hotel_name = 'hotel1'", "room_num = '4'"}};
+            String[][] testQuery7 = {{"agreement_num = 4", },{"hotel_name = 'hotel1'", "room_num = '4'"}};
             app.updateRow("rooms", "Hotels", testQuery7[0], testQuery7[1]);
             System.out.println("end");
             
@@ -560,7 +560,7 @@ public class Application {
             
 
 
-        }
+        
     }
 
 }
