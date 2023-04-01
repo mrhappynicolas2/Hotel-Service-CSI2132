@@ -8,7 +8,6 @@ https://www.postgresqltutorial.com/postgresql-jdbc/call-postgresql-stored-functi
 example of how its used
 
 INSTRUCTIONS:
-![image](https://user-images.githubusercontent.com/113477833/229259553-eb12b254-51b3-486d-bafd-80d88b5a365b.png)
 
 
 ![image](https://user-images.githubusercontent.com/113709937/222928067-0868b2a3-ac2d-4145-a8b1-eec228182592.png)
