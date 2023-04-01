@@ -11,9 +11,13 @@ INSTRUCTIONS:
 
 
 ![image](https://user-images.githubusercontent.com/113709937/222928067-0868b2a3-ac2d-4145-a8b1-eec228182592.png)
-<img width="703" alt="Screen Shot 2023-03-31 at 10 25 02 PM" src="https://user-images.githubusercontent.com/113477833/229261511-33aaf056-cba5-459f-ac13-447a14dffca1.png">
 
 You will have to login with the username and password of your database (for example, Username: postgres, password: 123)
+<img width="703" alt="Screen Shot 2023-03-31 at 10 29 58 PM" src="https://user-images.githubusercontent.com/113477833/229261662-a0c76aff-4773-4e59-9785-738a54d9ead1.png">
+
+<img width="703" alt="Screen Shot 2023-03-31 at 10 30 58 PM" src="https://user-images.githubusercontent.com/113477833/229261698-b307dfc4-272d-47d7-894f-579ce74ea197.png">
+
+
 ![image](https://user-images.githubusercontent.com/113477833/229261436-26d59f00-3d52-498f-b6c0-b3d6ff3df888.png)
 
 ![image](https://user-images.githubusercontent.com/113709937/222928121-e8c88737-ff62-42d8-8973-a45728a7c78b.png)
