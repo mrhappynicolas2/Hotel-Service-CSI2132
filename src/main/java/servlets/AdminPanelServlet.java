@@ -31,24 +31,30 @@ public class AdminPanelServlet extends HttpServlet {
 
         if (request.getParameter("customerButton") != null && request.getParameter("personSSN") != "") {
             String customerSSN = request.getParameter("personSSN");
-            customerMenu(app, out, customerSSN);
+            customerMenu(app, out, customerSSN,session);
         } else if (request.getParameter("employeeButton") != null && request.getParameter("personSSN") != "") {
             String employeeSSN = request.getParameter("personSSN");
-            employeeMenu(app, out, employeeSSN);
+            employeeMenu(app, out, employeeSSN,session);
         } else if ((request.getParameter("customerButton") != null || request.getParameter("employeeButton") != null) && (request.getParameter("personSSN") == "" || request.getParameter("customerSSN") == null)) {
             out.println("Sorry, but you need a SSN to look a person up!");
             request.getRequestDispatcher("admin_panel.html").include(request, response);
         } else if (request.getParameter("hotelButton") != null && request.getParameter("Hotels") != "") {
-            hotelMenu(app, out, hotelName);
+            hotelMenu(app, out, hotelName,session);
         } else if (request.getParameter("hotelButton") != null && request.getParameter("Hotels") == "") {
             out.println("Sorry, but you need a hotel name to look a hotel up!");
             request.getRequestDispatcher("admin_panel.html").include(request, response);
+        } else if(request.getParameter("roomButton") != null && (request.getParameter("Hotels") != "" && request.getParameter("roomNum") != "") ){
+            String roomNum = request.getParameter("roomNum");
+            roomMenu(app,out,hotelName,roomNum,session);
+        }
+        else if(request.getParameter("roomButton") != null && ((request.getParameter("Hotels") == "" && request.getParameter("roomNum") != "") || (request.getParameter("Hotels") != "" && request.getParameter("roomNum") == "") || (request.getParameter("Hotels") == "" && request.getParameter("roomNum") == ""))){
+            out.println("Sorry, but you need a hotel name and room number to look a room up!");
         }
 
 
     }
 
-    public void customerMenu(Application app, PrintWriter out, String customerSSN) {
+    public void customerMenu(Application app, PrintWriter out, String customerSSN, HttpSession session) {
         // List customer information with options to insert, delete or update
         String[] select = {"ssnc", "name", "adress", "username", "password", "registrationdate", "phone"};
         String tablename = "customer";
@@ -123,37 +129,37 @@ public class AdminPanelServlet extends HttpServlet {
                     + "<tr>"
                     + "<td>"
                     + "<form action=\"AdminModifyServlet\" method=\"post\">"
-                    + "<input type=\"submit\" value=\"Modify SSN\">"
+                    + "<input type=\"submit\" value=\"Modify SSN\" name=\"modifyCustSSN\">"
                     + "</form>"
                     + "</td>"
                     + "<td>"
                     + "<form action=\"AdminModifyServlet\" method=\"post\">"
-                    + "<input type=\"submit\" value=\"Modify Name\">"
+                    + "<input type=\"submit\" value=\"Modify Name\" name=\"modifyCustName\">"
                     + "</form>"
                     + "</td>"
                     + "<td>"
                     + "<form action=\"AdminModifyServlet\" method=\"post\">"
-                    + "<input type=\"submit\" value=\"Modify Address\">"
+                    + "<input type=\"submit\" value=\"Modify Address\" name=\"modifyCustAddress\">"
                     + "</form>"
                     + "</td>"
                     + "<td>"
                     + "<form action=\"AdminModifyServlet\" method=\"post\">"
-                    + "<input type=\"submit\" value=\"Modify Username\">"
+                    + "<input type=\"submit\" value=\"Modify Username\" name=\"modifyCustUser\">"
                     + "</form>"
                     + "</td>"
                     + "<td>"
                     + "<form action=\"AdminModifyServlet\" method=\"post\">"
-                    + "<input type=\"submit\" value=\"Modify Password\">"
+                    + "<input type=\"submit\" value=\"Modify Password\" name=\"modifyCustPass\">"
                     + "</form>"
                     + "</td>"
                     + "<td>"
                     + "<form action=\"AdminModifyServlet\" method=\"post\">"
-                    + "<input type=\"submit\" value=\"Modify Registration\">"
+                    + "<input type=\"submit\" value=\"Modify Registration\" name=\"modifyCustReg\">"
                     + "</form>"
                     + "</td>"
                     + "<td>"
                     + "<form action=\"AdminModifyServlet\" method=\"post\">"
-                    + "<input type=\"submit\" value=\"Modify Phone Number\">"
+                    + "<input type=\"submit\" value=\"Modify Phone Number\" name=\"modifyCustPhone\">"
                     + "</form>"
                     + "</td>"
                     + "<td>"
@@ -168,10 +174,18 @@ public class AdminPanelServlet extends HttpServlet {
                     + "</html>";
             out.print(begin + middle);
             out.close();
+            session.setAttribute("customerSSN",fixedCustomerInfo[0]);
+            session.setAttribute("customerName",fixedCustomerInfo[1]);
+            session.setAttribute("customerAddress",fixedCustomerInfo[2]);
+            session.setAttribute("customerUser",fixedCustomerInfo[3]);
+            session.setAttribute("customerPass",fixedCustomerInfo[4]);
+            session.setAttribute("customerRegDate",fixedCustomerInfo[5]);
+            session.setAttribute("customerPhone",fixedCustomerInfo[6]);
         }
+
     }
 
-    public void employeeMenu(Application app, PrintWriter out, String employeeSSN) {
+    public void employeeMenu(Application app, PrintWriter out, String employeeSSN, HttpSession session) {
         // List employee information with options to insert, delete or update
         String[] select = {"ssne", "name", "adress", "username", "password", "hiredate"};
         String tablename = "employee";
@@ -247,32 +261,32 @@ public class AdminPanelServlet extends HttpServlet {
                             + "<tr>"
                             + "<td>"
                             + "<form action=\"AdminModifyServlet\" method=\"post\">"
-                            + "<input type=\"submit\" value=\"Modify SSN\">"
+                            + "<input type=\"submit\" value=\"Modify SSN\" name=\"modifyEmployeeSSN\">"
                             + "</form>"
                             + "</td>"
                             + "<td>"
                             + "<form action=\"AdminModifyServlet\" method=\"post\">"
-                            + "<input type=\"submit\" value=\"Modify Name\">"
+                            + "<input type=\"submit\" value=\"Modify Name\" name=\"modifyEmployeeName\">"
                             + "</form>"
                             + "</td>"
                             + "<td>"
                             + "<form action=\"AdminModifyServlet\" method=\"post\">"
-                            + "<input type=\"submit\" value=\"Modify Address\">"
+                            + "<input type=\"submit\" value=\"Modify Address\" name=\"modifyEmployeeAddress\">"
                             + "</form>"
                             + "</td>"
                             + "<td>"
                             + "<form action=\"AdminModifyServlet\" method=\"post\">"
-                            + "<input type=\"submit\" value=\"Modify Username\">"
+                            + "<input type=\"submit\" value=\"Modify Username\" name=\"modifyEmployeeUser\">"
                             + "</form>"
                             + "</td>"
                             + "<td>"
                             + "<form action=\"AdminModifyServlet\" method=\"post\">"
-                            + "<input type=\"submit\" value=\"Modify Password\">"
+                            + "<input type=\"submit\" value=\"Modify Password\" name=\"modifyEmployeePass\">"
                             + "</form>"
                             + "</td>"
                             + "<td>"
                             + "<form action=\"AdminModifyServlet\" method=\"post\">"
-                            + "<input type=\"submit\" value=\"Modify Hire Date\">"
+                            + "<input type=\"submit\" value=\"Modify Hire Date\" name=\"modifyEmployeeHireDate\">"
                             + "</form>"
                             + "</td>"
                             + "<td>"
@@ -280,18 +294,24 @@ public class AdminPanelServlet extends HttpServlet {
                             "<input type=\"submit\" value=\"Delete\">\n" +
                             "</form>" +
                             "</td>" +
-                            "</tr>";
-        }
-        String end =
-                "		</tbody>"
-                        + "	</table>"
-                        + "</body>;";
-        out.print(begin + middle + end);
+                            "</tr>"+
+            "		</tbody>"
+                    + "	</table>"
+                    + "</body>";
+            out.print(begin + middle);
 
-        out.close();
+            out.close();
+            session.setAttribute("employeeSSN",fixedEmployeeInfo[0]);
+            session.setAttribute("employeeName",fixedEmployeeInfo[1]);
+            session.setAttribute("employeeAddress",fixedEmployeeInfo[2]);
+            session.setAttribute("employeeUser",fixedEmployeeInfo[3]);
+            session.setAttribute("employeePass",fixedEmployeeInfo[4]);
+            session.setAttribute("employeeHireDate",fixedEmployeeInfo[5]);
+        }
+
     }
 
-    public void hotelMenu(Application app, PrintWriter out, String hotelName) {
+    public void hotelMenu(Application app, PrintWriter out, String hotelName, HttpSession session) {
         // List hotel and room information with options to insert, delete or update
         String[] selectHotel = {"name", "number_rooms", "chain", "stars", "adress", "email", "phone"};
         String tableNameHotel = "hotels";
@@ -383,37 +403,37 @@ public class AdminPanelServlet extends HttpServlet {
                             + "<tr>"
                             + "<td>"
                             + "<form action=\"AdminModifyServlet\" method=\"post\">"
-                            + "<input type=\"submit\" value=\"Modify Name\">"
+                            + "<input type=\"submit\" value=\"Modify Name\" name=\"modifyHotelName\">"
                             + "</form>"
                             + "</td>"
                             + "<td>"
                             + "<form action=\"AdminModifyServlet\" method=\"post\">"
-                            + "<input type=\"submit\" value=\"Modify Room Number\">"
+                            + "<input type=\"submit\" value=\"Modify Room Number\" name=\"modifyHotelRoomNum\">"
                             + "</form>"
                             + "</td>"
                             + "<td>"
                             + "<form action=\"AdminModifyServlet\" method=\"post\">"
-                            + "<input type=\"submit\" value=\"Modify Hotel Chain\">"
+                            + "<input type=\"submit\" value=\"Modify Hotel Chain\" name=\"modifyHotelChain\">"
                             + "</form>"
                             + "</td>"
                             + "<td>"
                             + "<form action=\"AdminModifyServlet\" method=\"post\">"
-                            + "<input type=\"submit\" value=\"Modify Stars\">"
+                            + "<input type=\"submit\" value=\"Modify Stars\" name=\"modifyHotelStars\">"
                             + "</form>"
                             + "</td>"
                             + "<td>"
                             + "<form action=\"AdminModifyServlet\" method=\"post\">"
-                            + "<input type=\"submit\" value=\"Modify Address\">"
+                            + "<input type=\"submit\" value=\"Modify Address\" name=\"modifyHotelAddress\">"
                             + "</form>"
                             + "</td>"
                             + "<td>"
                             + "<form action=\"AdminModifyServlet\" method=\"post\">"
-                            + "<input type=\"submit\" value=\"Modify Email\">"
+                            + "<input type=\"submit\" value=\"Modify Email\" name=\"modifyHotelEmail\">"
                             + "</form>"
                             + "</td>"
                             + "<td>"
                             + "<form action=\"AdminModifyServlet\" method=\"post\">"
-                            + "<input type=\"submit\" value=\"Modify Phone Number\">"
+                            + "<input type=\"submit\" value=\"Modify Phone Number\" name=\"modifyHotelPhone\">"
                             + "</form>"
                             + "</td>"
                             + "<td>"
@@ -421,11 +441,34 @@ public class AdminPanelServlet extends HttpServlet {
                             "<input type=\"submit\" value=\"Delete\">\n" +
                             "</form>" +
                             "</td>" +
-                            "</tr>";
+                            "</tr>"+
+                            "</tbody>" + "</table>"+"</html>";
+            out.print(beginHotel + middleHotel);
+            session.setAttribute("hotelName",fixedHotelInfo[0]);
+            session.setAttribute("hotelNumRooms",fixedHotelInfo[1]);
+            session.setAttribute("hotelChain",fixedHotelInfo[2]);
+            session.setAttribute("hotelStars",fixedHotelInfo[3]);
+            session.setAttribute("hotelAddress",fixedHotelInfo[4]);
+            session.setAttribute("hotelEmail",fixedHotelInfo[5]);
+            session.setAttribute("hotelPhoneNum",fixedHotelInfo[6]);
         }
-        middleHotel += "</tbody>" + "</table>";
+    }
+    public void roomMenu(Application app, PrintWriter out, String hotelName, String roomnum, HttpSession session){
+        String[] selectRooms = {"room_num", "room_type", "room_price", "room_capacity", "room_status", "room_annimities", "hotel_name", "agreement_num"};
+        String tableNameRooms = "rooms";
+        String[] whereRooms = {"hotel_name = " + hotelName};
+        List<String> queriedRooms = app.selectFromTable(tableNameRooms, selectRooms, "Hotels", whereRooms);
+        List<String> correctRooms = new ArrayList<>();
+        String queryRooms = "\"Hotels\".rooms.hotel_name: " + hotelName;
 
-        String middleRooms = "<table>"
+        for (String s : queriedRooms) {
+            if (s.startsWith(queryRooms)) {
+                System.out.println(s);
+                correctRooms.add(s);
+            }
+        }
+
+        String beginRooms = "<table>"
                 + "		<thead>"
                 + "			<tr>"
                 + "				<th>Room Number</th>"
@@ -441,6 +484,7 @@ public class AdminPanelServlet extends HttpServlet {
                 + "		</thead>"
                 + "		<tbody>";
 
+        String middleRooms = "";
 
         for (int i = 0; i < correctRooms.size(); i++) {
             String[] roomInfo = correctRooms.get(i).split(",");
@@ -465,42 +509,42 @@ public class AdminPanelServlet extends HttpServlet {
                             + "<tr>"
                             + "<td>"
                             + "<form action=\"AdminModifyServlet\" method=\"post\">"
-                            + "<input type=\"submit\" value=\"Modify Number\">"
+                            + "<input type=\"submit\" value=\"Modify Number\" name=\"modifyRoomNum\">"
                             + "</form>"
                             + "</td>"
                             + "<td>"
                             + "<form action=\"AdminModifyServlet\" method=\"post\">"
-                            + "<input type=\"submit\" value=\"Modify Type\">"
+                            + "<input type=\"submit\" value=\"Modify Type\" name=\"modifyRoomType\">"
                             + "</form>"
                             + "</td>"
                             + "<td>"
                             + "<form action=\"AdminModifyServlet\" method=\"post\">"
-                            + "<input type=\"submit\" value=\"Modify Price\">"
+                            + "<input type=\"submit\" value=\"Modify Price\" name=\"modifyRoomPrice\">"
                             + "</form>"
                             + "</td>"
                             + "<td>"
                             + "<form action=\"AdminModifyServlet\" method=\"post\">"
-                            + "<input type=\"submit\" value=\"Modify Capacity\">"
+                            + "<input type=\"submit\" value=\"Modify Capacity\" name=\"modifyRoomCapacity\">"
                             + "</form>"
                             + "</td>"
                             + "<td>"
                             + "<form action=\"AdminModifyServlet\" method=\"post\">"
-                            + "<input type=\"submit\" value=\"Modify Status\">"
+                            + "<input type=\"submit\" value=\"Modify Status\" name=\"modifyRoomStatus\">"
                             + "</form>"
                             + "</td>"
                             + "<td>"
                             + "<form action=\"AdminModifyServlet\" method=\"post\">"
-                            + "<input type=\"submit\" value=\"Modify Amenities\">"
+                            + "<input type=\"submit\" value=\"Modify Amenities\" name=\"modifyRoomAmenities\">"
                             + "</form>"
                             + "</td>"
                             + "<td>"
                             + "<form action=\"AdminModifyServlet\" method=\"post\">"
-                            + "<input type=\"submit\" value=\"Modify Hotel\">"
+                            + "<input type=\"submit\" value=\"Modify Hotel\" name=\"modifyHotelRoom\">"
                             + "</form>"
                             + "</td>"
                             + "<td>"
                             + "<form action=\"AdminModifyServlet\" method=\"post\">"
-                            + "<input type=\"submit\" value=\"Modify AgreementNum\">"
+                            + "<input type=\"submit\" value=\"Modify AgreementNum\" name=\"modifyRoomAgreement\">"
                             + "</form>"
                             + "</td>"
                             + "<td>"
@@ -508,13 +552,20 @@ public class AdminPanelServlet extends HttpServlet {
                             "<input type=\"submit\" value=\"Delete\">\n" +
                             "</form>" +
                             "</td>" +
-                            "</tr>";
-        }
-        String end =
-                "		</tbody>"
-                        + "	</table>"
-                        + "</body>";
+                            "</tr>"+
+                            "		</tbody>"
+                            + "	</table>"
+                            + "</body>";
+            out.print(beginRooms+middleRooms);
 
-        out.print(beginHotel + middleHotel + middleRooms + end);
+            session.setAttribute("roomNum",fixedRoomInfo[0]);
+            session.setAttribute("roomType",fixedRoomInfo[1]);
+            session.setAttribute("roomPrice",fixedRoomInfo[2]);
+            session.setAttribute("roomCapacity",fixedRoomInfo[3]);
+            session.setAttribute("roomStatus",fixedRoomInfo[4]);
+            session.setAttribute("roomAmenities",fixedRoomInfo[5]);
+            session.setAttribute("hotelnameRoom",fixedRoomInfo[6]);
+            session.setAttribute("roomAgreementNumber",fixedRoomInfo[7]);
+        }
     }
 }
