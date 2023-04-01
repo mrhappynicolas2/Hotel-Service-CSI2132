@@ -1,113 +1,117 @@
 <!DOCTYPE html>
 <html>
-  <style>
-     *{
-      font-family: 'Epilogue', sans-serif; 
-    }
-    ul {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      background-color: #333333;
-    }
-    
-    li {
-      float: left;
-    }
-    
-    li a {
-      display: block;
-      color: white;
-      text-align: center;
-      padding: 16px;
-      text-decoration: none;
-    }
-    
-    li a:hover {
-      background-color: #111111;
-      transition: background-color 900ms ease;
-    }
-
-    .search_page{
-      padding-left: 5px;  
-      margin-bottom: 10px;
-    }
-
-    .button{
-    margin-top: 12px;
-    cursor: pointer;
-    text-decoration: none;
-    margin-right: 15px;
-    padding: 10px 15px;
-    border-radius: 30px;
-    background-color: #000;
-    color: #fff;
-    line-height: inherit;
-    font-size: 1.1rem;
-    font-weight: 600;
-    border: 2px solid #000;
-    letter-spacing: -0.01em;
-    transition: background-color 500ms ease;
-    }
-
-    .button:hover{
-    border: 2px solid #000;
-    background-color: transparent;
-    color: #000;
-    }
-
-    label,input{
-      display: block;
-    }
-
-    label{
-      margin-bottom: 20px;
-    }
-
-
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Example</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+      header {
+        background-color: #333;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+      }
+      nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
+      nav li {
+        margin: 0 1rem;
+      }
+      nav li a {
+        color: #fff;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+        padding: 1rem;
+        border-radius: 0.25rem;
+      }
+      nav li a:hover {
+        background-color: #555;
+      }
+      h1 {
+        text-align: center;
+        margin: 2rem 0;
+        font-size: 2rem;
+      }
+      form {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      form label {
+        display: block;
+        width: 100%;
+        margin-bottom: 0.5rem;
+        font-size: 1.2rem;
+      }
+      form input[type="text"],
+      form select,
+      form input[type="date"] {
+        width: 100%;
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        border: 1px solid #ddd;
+      }
+      form input[type="submit"] {
+        background-color: #333;
+        color: #fff;
+        border: none;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      form input[type="submit"]:hover {
+        background-color: #555;
+      }
     </style>
-    <nav>
-      <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="Search.html">Available Rooms</a></li>
-      <li><a href="Reservation.html">Employee Section</a></li>
-      </ul>
-    </nav>
-<head>
-	<title>Room Search</title>
-</head>
-<body>
-  <div class="search_page"> 
-	<h1>Search for Rooms</h1>
-        <form action="SearchServlet" method="post">
-          <label>
-            Hotel Name: <input type="text" name="hotel">
-          </label>
-          <label>
-            Town: 
-            <select id="Area" name="arealist" form="SearchServlet">
-              <option value="madrid">Madrid</option>
-              <option value="ottawa">Ottawa</option>
-              <option value="opel">Opel</option>
-              <option value="paris">Paris</option>
-              <option value="none">None</option>
-            </select> </label>
-            <label>
-            Max number of rooms: <input type="text" name="numberRooms">
-            </label>
-            <label>
-            Max price: <input type="text" name="maxPrice">
-            </label>
-            <label>
-            Start date: <input type="date" id="startDate" name="startDate">
-            </label>
-            <label>
-            End date: <input type="date" id="endDate" name="endDate">
-          </label>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="Search.html">Available Rooms</a></li>
+          <li><a href="Reservation.html">Employee Section</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <h1>Search for Items</h1>
 
-            <input type="submit" value="Search for availability" class="button">
+      <form action="SearchServlet" method="post">
+        <label for="hotel">Hotel Name:</label>
+        <input type="text" name="hotel" id="hotel">
+        <label for="number">Number of Hotels:</label>
+        <input type="text" name="number" id="number">
+        <label for="arealist">Town:</label>
+        <select id="arealist" name="arealist">
+          <option value="madrid">Madrid</option>
+          <option value="ottawa">Ottawa</option>
+          <option value="opel">Opel</option>
+          <option value="paris">Paris</option>
+          <option value="none">None</option>
+        </select>
+            Max number of rooms:<input type="text" name="numberRooms"><br>
+            Max price:<input type="text" name="maxPrice"><br>
+            Start date<input type="date" id="startDate" name="startDate"><br>
+            End date<input type="date" id="endDate" name="endDate"><br>
+
+            <input type="submit" value="Search for availability">
         </form>
-</div> 
+
+	</form>
 </body>
 </html>
