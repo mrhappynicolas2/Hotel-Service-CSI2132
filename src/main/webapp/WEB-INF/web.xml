@@ -40,6 +40,24 @@
     <servlet-name>AdminLogInServlet</servlet-name>
     <url-pattern>/AdminLogInServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <servlet-name>AdminModifyFinishServlet</servlet-name>
+    <servlet-class>servlets.AdminModifyFinishServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminModifyFinishServlet</servlet-name>
+    <url-pattern>/AdminModifyFinishServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <servlet-name>AdminModifyServlet</servlet-name>
+    <servlet-class>servlets.AdminModifyServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminModifyServlet</servlet-name>
+    <url-pattern>/AdminModifyServlet</url-pattern>
+  </servlet-mapping>
      <servlet>
     <description></description>
     <servlet-name>AdminPanelServlet</servlet-name>
@@ -48,6 +66,15 @@
   <servlet-mapping>
     <servlet-name>AdminPanelServlet</servlet-name>
     <url-pattern>/AdminPanelServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <servlet-name>AdminDeleteServlet</servlet-name>
+    <servlet-class>servlets.AdminDeleteServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminDeleteServlet</servlet-name>
+    <url-pattern>/AdminDeleteServlet</url-pattern>
   </servlet-mapping>
      <servlet>
     <description></description>
