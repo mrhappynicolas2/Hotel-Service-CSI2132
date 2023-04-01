@@ -2,7 +2,7 @@
  A hotel service created with SQL
 
 https://mkyong.com/jdbc/how-do-connect-to-postgresql-with-jdbc-driver-java/
-How to install the api that will connect to the databae with java
+How to install the api that will connect to the databae with java.
 
 https://www.postgresqltutorial.com/postgresql-jdbc/call-postgresql-stored-function/
 example of how its used
