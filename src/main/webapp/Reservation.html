@@ -1,91 +1,150 @@
 <!DOCTYPE html>
 <html>
-  <style>
-    *{
-      font-family: 'Epilogue', sans-serif; 
-    }
-    ul {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      background-color: #333333;
-    }
-    
-    li {
-      float: left;
-    }
-    
-    li a {
-      display: block;
-      color: white;
-      text-align: center;
-      padding: 16px;
-      text-decoration: none;
-    }
-    
-    li a:hover {
-      background-color: #111111;
-      transition: background-color 900ms ease;
-    }
+  <head>
+    <title>Employee Reservation</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      /* Reset the default margin and padding */
+      .admin-login {
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-top: 40px;
+  text-align: center;
+}
 
-    .button{
-    margin-top: 12px;
-    cursor: pointer;
-    text-decoration: none;
-    margin-right: 15px;
-    padding: 10px 15px;
-    border-radius: 30px;
-    background-color: #000;
-    color: #fff;
-    line-height: inherit;
-    font-size: 1.1rem;
-    font-weight: 600;
-    border: 2px solid #000;
-    letter-spacing: -0.01em;
-    transition: background-color 500ms ease;
-    }
+.admin-login h2 {
+  margin-top: 0;
+}
 
-    .button:hover{
-    border: 2px solid #000;
-    background-color: transparent;
-    color: #000;
-    }
+.admin-login a {
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+}
 
-    .reservation_page{
-      padding-left: 10px;
-    }
+.admin-login a:hover {
+  color: #555;
+}
 
-    .admin_button{
-      display: flex;
-    }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
+      /* Style the navigation bar */
+      nav {
+        background-color: #333333;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+      }
+
+      /* Style the navigation links */
+      nav ul {
+        display: flex;
+        list-style: none;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        padding: 10px;
+      }
+
+      nav a:hover {
+        background-color: #111111;
+      }
+
+      /* Style the main content */
+      main {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 2em;
+        margin-bottom: 20px;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+      }
+
+      label {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      input[type="text"] {
+        padding: 5px;
+        font-size: 1.2em;
+        border: none;
+        border-bottom: 2px solid #333333;
+        margin-bottom: 20px;
+      }
+
+      input[type="submit"] {
+        background-color: #333333;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.2em;
+        cursor: pointer;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #111111;
+      }
+
+      h2 {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+      }
+
+      p {
+        margin-bottom: 10px;
+      }
     </style>
-    <head>
-      <title>Agreement Search</title>
-    </head>
-    <ul class="navbar">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="Search.html">Available Rooms</a></li>
-      <li><a href="Reservation.html">Employee Section</a></li>
-    </ul>
+  </head>
   <body>
-    <div class="reservation_page">
-	<h1>Search for Reservation</h1>
-        <form action="ReservationServlet" method="post">
-            Reservation ID: <input type="text" name="reservationID"><br>
-            <input type="submit" value="Search for reservation" class="button">
-        </form>
+    <!-- Navigation bar -->
+    <nav>
+      <a href="index.html">
+      </a>
+      <ul>
+        <li><a href="Search.html">Available Rooms</a></li>
+        <li><a href="Reservation.html">Employee Section</a></li>
+      </ul>
+    </nav>
 
-	</form>
+    <!-- Main content -->
+    <main>
+      <h1>Search for Reservation</h1>
+      <form action="ReservationServlet" method="post">
+        <label for="reservationID">Reservation ID:</label>
+        <input type="text" id="reservationID" name="reservationID">
+        <input type="submit" value="Search for reservation">
+      </form>
 
-  <h2>Admin login page</h2>
-  <p class="admin_button">
-    <a href="admin_login.html" class="button">Admin Page</a>
-  </p>
-
-  <p>&copy; 2023 Hotel Company</p>
-  <p>For inquiries, email at EHotels@gmail.ca</p>
-</body>
-</div>
+      <div class="admin-login">
+        <h2>Admin login page</h2>
+        <p>
+          <a href="admin.html">Admin Page</a>
+        </p>
+      
+        <p>&copy; 2023 Hotel Company</p>
+        <p>For inquiries, email at <a href="mailto:ehotels@gmail.ca">ehotels@gmail.ca</a></p>
+      </div>
+      
+    </main>
+  </body>
 </html>
