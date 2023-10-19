@@ -2,6 +2,8 @@
 E-Hotels was a web application which was built for my database class. Originaly on github it used a virtual server on a desktop and would connect to SQL trought a port and was not connected to the cloud
 
 Information on this repository can be found on [my website](https://www.nicolasberube.ca/hotel/hotel.html)
+# Video Demo
+[https://www.youtube.com/watch?v=fnOP6J94Bck](https://www.youtube.com/watch?v=fnOP6J94Bck)
 
 # Images
 ![image](https://github.com/mrhappynicolas2/Hotel-Service-CSI2132-SQL-/assets/113709937/1b063bcc-8992-4b9c-ba15-946888e88ae2)
